@@ -1,0 +1,486 @@
+:root {
+  font-family: 'Inter', sans-serif;
+  color: #f7f4ee;
+  background:
+    radial-gradient(circle at top left, rgba(255, 146, 61, 0.22), transparent 28%),
+    linear-gradient(135deg, #1a0f08 0%, #2c140d 40%, #7a2d0d 100%);
+  line-height: 1.5;
+  font-weight: 400;
+  color-scheme: dark;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.page-shell {
+  width: min(1200px, calc(100% - 2rem));
+  margin: 0 auto;
+  padding: 1rem 0 2rem;
+}
+
+.hero {
+  padding: 1.25rem 0 2rem;
+}
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  margin-bottom: 2rem;
+}
+
+.brand-mark {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.35rem;
+  margin: 0;
+}
+
+.brand-note {
+  margin: 0.3rem 0 0;
+  color: rgba(247, 244, 238, 0.8);
+  font-size: 0.9rem;
+}
+
+.nav-actions {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.nav-actions a,
+.footer-links a {
+  color: #f7f4ee;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 2rem;
+  align-items: center;
+}
+
+.eyebrow {
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: #ffd7a8;
+  font-size: 0.78rem;
+  font-weight: 700;
+  margin-bottom: 0.75rem;
+}
+
+.hero-copy h1,
+.section-heading h2,
+.split-section h2,
+.callout h2 {
+  font-family: 'Playfair Display', serif;
+  margin: 0;
+  line-height: 1.1;
+}
+
+.hero-copy h1 {
+  font-size: clamp(2.4rem, 2vw + 1.8rem, 3.6rem);
+  margin-bottom: 1rem;
+}
+
+.hero-text,
+.section-copy,
+.tour-card p,
+.instagram-card p,
+.testimonial-card p,
+.footer p,
+.contact-points,
+.status-note {
+  color: rgba(247, 244, 238, 0.88);
+}
+
+.hero-actions {
+  display: flex;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.9rem 1.3rem;
+  border-radius: 999px;
+  text-decoration: none;
+  font-weight: 800;
+  border: 1px solid transparent;
+  transition: transform 180ms ease, background 180ms ease, border-color 180ms ease;
+  cursor: pointer;
+  font-family: inherit;
+}
+
+.btn:hover {
+  transform: translateY(-1px);
+}
+
+.btn-primary {
+  background: linear-gradient(135deg, #ffb56b, #ff7a3d);
+  color: #1f0d06;
+}
+
+.btn-secondary {
+  border-color: rgba(247, 244, 238, 0.4);
+  color: #f7f4ee;
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.hero-stats {
+  display: flex;
+  gap: 1.5rem;
+  flex-wrap: wrap;
+}
+
+.hero-stats div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.2rem;
+}
+
+.hero-stats strong {
+  font-size: 1.3rem;
+}
+
+.hero-stats span {
+  color: rgba(247, 244, 238, 0.8);
+  font-size: 0.92rem;
+}
+
+.hero-card {
+  background: linear-gradient(180deg, rgba(255,255,255,0.08), rgba(255,255,255,0.02));
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 28px;
+  padding: 1.3rem;
+  box-shadow: 0 24px 80px rgba(10, 5, 3, 0.35);
+  backdrop-filter: blur(12px);
+}
+
+.hero-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-size: 0.9rem;
+  color: rgba(247, 244, 238, 0.8);
+}
+
+.hero-card h2 {
+  font-family: 'Playfair Display', serif;
+  font-size: 2rem;
+  margin: 1rem 0 0.3rem;
+}
+
+.hero-card p {
+  color: rgba(247, 244, 238, 0.88);
+}
+
+.pill-row {
+  margin-top: 1rem;
+}
+
+.pill {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.35rem 0.8rem;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.12);
+  font-size: 0.9rem;
+}
+
+.mini-map {
+  margin-top: 1.5rem;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+}
+
+.marker {
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  color: #f7f4ee;
+  border-radius: 999px;
+  padding: 0.7rem 1rem;
+  font-weight: 700;
+  cursor: pointer;
+}
+
+.marker.active {
+  background: linear-gradient(135deg, #ffb56b, #ff7a3d);
+  color: #1f0d06;
+}
+
+.section {
+  margin: 2.5rem 0;
+  padding: 1rem 0;
+}
+
+.section-heading {
+  margin-bottom: 1rem;
+}
+
+.tour-grid,
+.instagram-grid,
+.testimonial-grid {
+  display: grid;
+  gap: 1rem;
+}
+
+.tour-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.tour-card,
+.instagram-card,
+.testimonial-card,
+.booking-panel {
+  background: rgba(255,255,255,0.06);
+  border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 24px;
+}
+
+.tour-card {
+  padding: 1.2rem;
+  min-height: 180px;
+}
+
+.tour-label {
+  font-weight: 800;
+  font-size: 1.05rem;
+  margin-top: 0;
+}
+
+.instagram-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.instagram-card {
+  padding: 1.2rem;
+  min-height: 180px;
+  background:
+    linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)),
+    radial-gradient(circle at top left, rgba(255, 183, 107, 0.2), transparent 30%);
+}
+
+.instagram-card h3 {
+  margin: 0.85rem 0 0.4rem;
+  font-size: 1.15rem;
+}
+
+.instagram-tag {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.3rem 0.75rem;
+  border-radius: 999px;
+  background: rgba(255,255,255,0.12);
+  font-size: 0.85rem;
+  font-weight: 700;
+}
+
+.social-cta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-cta p {
+  margin: 0;
+}
+
+.testimonial-grid {
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+}
+
+.testimonial-card {
+  padding: 1.2rem;
+}
+
+.testimonial-card strong {
+  display: inline-block;
+  margin-top: 0.8rem;
+}
+
+.split-section {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.feature-list {
+  display: grid;
+  gap: 0.9rem;
+}
+
+.feature-item {
+  display: flex;
+  gap: 0.8rem;
+  align-items: flex-start;
+  padding: 1rem 1.1rem;
+  border-radius: 20px;
+  background: rgba(255,255,255,0.05);
+}
+
+.feature-item span {
+  color: #ffd7a8;
+  font-size: 1.1rem;
+}
+
+.callout {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  border-radius: 28px;
+  padding: 1.4rem 1.6rem;
+  background: linear-gradient(135deg, rgba(255,183,107,0.18), rgba(255,122,61,0.14));
+}
+
+.booking-panel {
+  display: grid;
+  grid-template-columns: 0.85fr 1.15fr;
+  gap: 1.5rem;
+  padding: 1.4rem;
+}
+
+.contact-points {
+  padding-left: 1.1rem;
+  margin-bottom: 0;
+}
+
+.booking-form {
+  display: grid;
+  gap: 1rem;
+}
+
+.form-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 1rem;
+}
+
+.form-field {
+  display: grid;
+  gap: 0.5rem;
+  font-weight: 700;
+}
+
+.form-field span {
+  font-size: 0.95rem;
+}
+
+.form-field input,
+.form-field select,
+.form-field textarea {
+  width: 100%;
+  border-radius: 16px;
+  border: 1px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.05);
+  color: #f7f4ee;
+  padding: 0.85rem 1rem;
+  font: inherit;
+}
+
+.form-field textarea {
+  resize: vertical;
+}
+
+.full-width {
+  grid-column: 1 / -1;
+}
+
+.form-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+.status-note {
+  margin: 0;
+  max-width: 25rem;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem 0 0.5rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
+}
+
+.footer-links {
+  display: flex;
+  gap: 1rem;
+  flex-wrap: wrap;
+}
+
+@media (max-width: 900px) {
+  .hero-grid,
+  .split-section,
+  .tour-grid,
+  .instagram-grid,
+  .testimonial-grid,
+  .booking-panel,
+  .callout,
+  .footer {
+    grid-template-columns: 1fr;
+    display: grid;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .social-cta {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .form-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 640px) {
+  .page-shell {
+    width: min(100% - 1rem, 1200px);
+  }
+
+  .hero-copy h1 {
+    font-size: 2.2rem;
+  }
+
+  .hero-card {
+    padding: 1rem;
+  }
+
+  .btn {
+    width: 100%;
+  }
+
+  .form-actions {
+    align-items: flex-start;
+  }
+}
