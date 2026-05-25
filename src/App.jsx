@@ -86,10 +86,65 @@ const initialForm = {
   message: '',
 }
 
+const mangoSuggestions = [
+  'Best time to visit?',
+  'How many days?',
+  'What should I pack?',
+  'Is it good for families?',
+]
+
+const initialMangoMessages = [
+  {
+    from: 'mango',
+    text: 'Hi, I am Mango. Ask me anything about planning a Northern Ethiopia trip.',
+  },
+]
+
+const getMangoReply = (question) => {
+  const message = question.toLowerCase()
+
+  if (message.includes('time') || message.includes('season') || message.includes('weather')) {
+    return 'The best travel months are usually October to March, when the weather is milder and skies are clearer for churches, mountains, and scenic routes.'
+  }
+
+  if (message.includes('day') || message.includes('long') || message.includes('itinerary')) {
+    return 'For a first visit, 5 to 8 days works well. Lalibela can fit into 2 to 3 days, while Gheralta, Axum, and the Simien Mountains need more time.'
+  }
+
+  if (message.includes('pack') || message.includes('bring') || message.includes('wear')) {
+    return 'Pack comfortable walking shoes, sun protection, light layers, a modest outfit for churches, a reusable water bottle, and a jacket for cool highland evenings.'
+  }
+
+  if (message.includes('family') || message.includes('kid') || message.includes('children')) {
+    return 'Yes, many routes can work for families. Shorter walks, flexible pacing, and private guides make the trip easier for children and older travelers.'
+  }
+
+  if (message.includes('price') || message.includes('cost') || message.includes('budget')) {
+    return 'Costs depend on dates, hotel style, group size, and route. Use the inquiry form with your travel dates and Mango recommends asking for a custom quote.'
+  }
+
+  if (message.includes('safe') || message.includes('security')) {
+    return 'Travel conditions can change. Mango recommends confirming the current route, guide availability, and local travel advice before booking.'
+  }
+
+  if (message.includes('lalibela')) {
+    return 'Lalibela is best for rock-hewn churches, spiritual history, and meaningful cultural guiding. Many travelers spend 2 or 3 days there.'
+  }
+
+  if (message.includes('simien') || message.includes('mountain')) {
+    return 'The Simien Mountains are best for dramatic views, hiking, wildlife, and cool highland air. Add extra days if you want a slower trekking pace.'
+  }
+
+  return 'Mango can help with routes, timing, packing, family travel, and what to expect. For exact prices or availability, send the inquiry form after asking your travel question.'
+}
+
 function App() {
   const [activeDestination, setActiveDestination] = useState(destinations[0].name)
   const [inquiry, setInquiry] = useState(initialForm)
   const [status, setStatus] = useState('')
+  const [isMangoOpen, setIsMangoOpen] = useState(false)
+  const [mangoInput, setMangoInput] = useState('')
+  const [mangoMessages, setMangoMessages] = useState(initialMangoMessages)
 
   useEffect(() => {
     if (window.instgrm?.Embeds) {
@@ -163,6 +218,27 @@ function App() {
     requestAnimationFrame(animateScroll)
   }
 
+  const askMango = (text) => {
+    const question = text.trim()
+
+    if (!question) {
+      return
+    }
+
+    setMangoMessages((previous) => [
+      ...previous,
+      { from: 'user', text: question },
+      { from: 'mango', text: getMangoReply(question) },
+    ])
+    setMangoInput('')
+    setIsMangoOpen(true)
+  }
+
+  const handleMangoSubmit = (event) => {
+    event.preventDefault()
+    askMango(mangoInput)
+  }
+
   return (
     <div className="page-shell">
       <header className="hero">
@@ -191,6 +267,7 @@ function App() {
             <div className="hero-actions">
               <a href="#tours" className="btn btn-primary">Explore tours</a>
               <a href="#contact" className="btn btn-secondary">Plan my trip</a>
+              <button type="button" className="btn btn-secondary" onClick={() => setIsMangoOpen(true)}>Talk to Mango</button>
             </div>
             <div className="hero-stats">
               <div>
@@ -324,6 +401,13 @@ function App() {
             <p className="eyebrow">Booking inquiry</p>
             <h2>Request a custom itinerary or ask about a tour</h2>
           </div>
+          <div className="mango-suggestion">
+            <div>
+              <p className="mango-suggestion-title">Have travel questions?</p>
+              <p>Talk to Mango for quick guidance before sending your inquiry.</p>
+            </div>
+            <button type="button" className="btn btn-secondary" onClick={() => setIsMangoOpen(true)}>Talk to Mango</button>
+          </div>
           <div className="booking-panel">
             <div>
               <p className="section-copy">
@@ -412,6 +496,48 @@ function App() {
           <a href="mailto:hello@visitgheralta.com">hello@visitgheralta.com</a>
         </div>
       </footer>
+
+      <div className={isMangoOpen ? 'mango-chat open' : 'mango-chat'}>
+        <button type="button" className="mango-launcher" onClick={() => setIsMangoOpen((value) => !value)}>
+          Mango
+        </button>
+        {isMangoOpen && (
+          <section className="mango-panel" aria-label="Mango travel chatbot">
+            <div className="mango-panel-header">
+              <div>
+                <p className="mango-name">Mango</p>
+                <p className="mango-status">Travel question assistant</p>
+              </div>
+              <button type="button" className="mango-close" onClick={() => setIsMangoOpen(false)} aria-label="Close Mango chat">
+                x
+              </button>
+            </div>
+            <div className="mango-messages">
+              {mangoMessages.map((message, index) => (
+                <p key={`${message.from}-${index}`} className={`mango-message mango-message--${message.from}`}>
+                  {message.text}
+                </p>
+              ))}
+            </div>
+            <div className="mango-quick-actions">
+              {mangoSuggestions.map((suggestion) => (
+                <button key={suggestion} type="button" onClick={() => askMango(suggestion)}>
+                  {suggestion}
+                </button>
+              ))}
+            </div>
+            <form className="mango-form" onSubmit={handleMangoSubmit}>
+              <input
+                value={mangoInput}
+                onChange={(event) => setMangoInput(event.target.value)}
+                placeholder="Ask Mango about travel"
+                aria-label="Ask Mango about travel"
+              />
+              <button type="submit">Send</button>
+            </form>
+          </section>
+        )}
+      </div>
     </div>
   )
 }
