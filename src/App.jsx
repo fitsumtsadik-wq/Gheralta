@@ -48,16 +48,40 @@ const instagramHighlights = [
     title: 'Lalibela Sunrise',
     tag: 'Heritage',
     note: 'Morning light, sacred sites, and a calm beginning to your journey.',
+    accent: 'heritage',
+    url: 'https://www.instagram.com/gheralta_tours/',
+    handle: '@gheralta_tours',
+    avatar: 'VG',
+    location: 'Lalibela',
+    time: '2h ago',
+    likes: '2.4K',
+    comments: '68',
   },
   {
     title: 'Simien Views',
     tag: 'Adventure',
     note: 'Highland trails, dramatic terrain, and unforgettable panoramas.',
+    accent: 'adventure',
+    url: 'https://www.instagram.com/gheralta_tours/',
+    handle: '@gheralta_tours',
+    avatar: 'VG',
+    location: 'Simien',
+    time: '1d ago',
+    likes: '3.1K',
+    comments: '94',
   },
   {
     title: 'Local Encounters',
     tag: 'Culture',
     note: 'Real moments with communities, rituals, and everyday traditions.',
+    accent: 'culture',
+    url: 'https://www.instagram.com/gheralta_tours/',
+    handle: '@gheralta_tours',
+    avatar: 'VG',
+    location: 'Omo Valley',
+    time: '3d ago',
+    likes: '1.8K',
+    comments: '47',
   },
 ]
 
@@ -231,11 +255,34 @@ function App() {
           </div>
           <div className="instagram-grid">
             {instagramHighlights.map((item) => (
-              <article key={item.title} className="instagram-card">
-                <span className="instagram-tag">{item.tag}</span>
-                <h3>{item.title}</h3>
-                <p>{item.note}</p>
-              </article>
+              <a
+                key={item.title}
+                href={item.url}
+                target="_blank"
+                rel="noreferrer"
+                className={`instagram-card instagram-card--${item.accent}`}
+              >
+                <div className="instagram-card-header">
+                  <div className="instagram-card-avatar" aria-hidden="true">{item.avatar}</div>
+                  <div>
+                    <p className="instagram-card-handle">{item.handle}</p>
+                    <p className="instagram-card-meta">{item.location} • {item.time}</p>
+                  </div>
+                </div>
+                <div className="instagram-card-media" aria-hidden="true" />
+                <div className="instagram-card-actions" aria-hidden="true">
+                  <span>♡</span>
+                  <span>💬</span>
+                  <span>↗</span>
+                </div>
+                <div className="instagram-card-content">
+                  <p className="instagram-likes">{item.likes} likes</p>
+                  <p className="instagram-caption">
+                    <span>{item.handle}</span> {item.note}
+                  </p>
+                  <p className="instagram-comment-link">View all {item.comments} comments</p>
+                </div>
+              </a>
             ))}
           </div>
           <div className="social-cta">
