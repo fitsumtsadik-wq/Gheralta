@@ -18,6 +18,10 @@
   --accent-deep: #ff7a3d;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 * {
   box-sizing: border-box;
 }
@@ -63,6 +67,19 @@ body::before {
   align-items: center;
   margin-bottom: 2rem;
   padding: 0.15rem 0;
+}
+
+.brand-link {
+  text-decoration: none;
+  color: inherit;
+  display: inline-flex;
+  flex-direction: column;
+  gap: 0.1rem;
+}
+
+.brand-link:hover .brand-mark,
+.brand-link:hover .brand-note {
+  color: var(--accent);
 }
 
 .brand-mark {
@@ -145,7 +162,6 @@ body::before {
 .hero-text,
 .section-copy,
 .tour-card p,
-.instagram-card p,
 .testimonial-card p,
 .footer p,
 .contact-points,
@@ -324,7 +340,7 @@ body::before {
 }
 
 .tour-card,
-.instagram-card,
+.instagram-embed-card,
 .testimonial-card,
 .booking-panel {
   background: var(--surface);
@@ -335,7 +351,7 @@ body::before {
 }
 
 .tour-card:hover,
-.instagram-card:hover,
+.instagram-embed-card:hover,
 .testimonial-card:hover,
 .booking-panel:hover {
   transform: translateY(-2px);
@@ -355,152 +371,22 @@ body::before {
 }
 
 .instagram-grid {
-  grid-template-columns: repeat(3, minmax(0, 1fr));
+  grid-template-columns: repeat(4, minmax(0, 1fr));
 }
 
-.instagram-card {
-  padding: 0;
-  min-height: 420px;
-  text-decoration: none;
-  display: flex;
-  flex-direction: column;
+.instagram-embed-card {
+  min-height: 520px;
+  padding: 0.75rem;
+  background: rgba(255, 255, 255, 0.08);
   overflow: hidden;
-  color: #f7f4ee;
-  background:
-    linear-gradient(180deg, rgba(255,255,255,0.09), rgba(255,255,255,0.03)),
-    radial-gradient(circle at top left, rgba(255, 183, 107, 0.2), transparent 30%);
 }
 
-.instagram-card-header {
-  display: flex;
-  align-items: center;
-  gap: 0.8rem;
-  padding: 0.9rem 1rem 0.85rem;
-}
-
-.instagram-card-avatar {
-  width: 2.2rem;
-  height: 2.2rem;
-  border-radius: 50%;
-  background: linear-gradient(135deg, var(--accent-strong), var(--accent-deep));
-  color: #1f0d06;
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  font-weight: 800;
-  font-size: 0.85rem;
-}
-
-.instagram-card-handle,
-.instagram-card-meta {
-  margin: 0;
-}
-
-.instagram-card-handle {
-  font-weight: 800;
-  font-size: 0.95rem;
-}
-
-.instagram-card-meta {
-  font-size: 0.8rem;
-  color: var(--text-muted);
-}
-
-.instagram-card-media {
-  min-height: 160px;
-  background:
-    linear-gradient(135deg, rgba(255, 183, 107, 0.26), rgba(255, 122, 61, 0.18)),
-    radial-gradient(circle at top left, rgba(255,255,255,0.22), transparent 25%);
-  border-top: 1px solid rgba(255,255,255,0.08);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  position: relative;
-}
-
-.instagram-card-media::before,
-.instagram-card-media::after {
-  content: '';
-  position: absolute;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.9);
-}
-
-.instagram-card-media::before {
-  width: 42px;
-  height: 42px;
-  top: 18px;
-  left: 18px;
-  opacity: 0.85;
-}
-
-.instagram-card-media::after {
-  width: 90px;
-  height: 12px;
-  bottom: 18px;
-  left: 18px;
-  opacity: 0.7;
-}
-
-.instagram-card--heritage .instagram-card-media {
-  background:
-    linear-gradient(135deg, rgba(255, 183, 107, 0.32), rgba(255, 122, 61, 0.14)),
-    radial-gradient(circle at top left, rgba(255,255,255,0.25), transparent 28%);
-}
-
-.instagram-card--adventure .instagram-card-media {
-  background:
-    linear-gradient(135deg, rgba(122, 45, 13, 0.35), rgba(255, 183, 107, 0.18)),
-    radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 28%);
-}
-
-.instagram-card--culture .instagram-card-media {
-  background:
-    linear-gradient(135deg, rgba(255, 122, 61, 0.26), rgba(255, 183, 107, 0.15)),
-    radial-gradient(circle at top left, rgba(255,255,255,0.18), transparent 28%);
-}
-
-.instagram-card-actions {
-  display: flex;
-  gap: 0.9rem;
-  padding: 0.85rem 1rem 0.2rem;
-  font-size: 1.1rem;
-}
-
-.instagram-card-content {
-  padding: 0.2rem 1rem 1.1rem;
-}
-
-.instagram-card-content p {
-  margin: 0.35rem 0;
-}
-
-.instagram-likes {
-  font-weight: 800;
-  font-size: 0.95rem;
-}
-
-.instagram-caption {
-  font-size: 0.92rem;
-  color: rgba(247, 244, 238, 0.92);
-  line-height: 1.5;
-}
-
-.instagram-caption span {
-  font-weight: 800;
-}
-
-.instagram-comment-link {
-  color: var(--text-muted);
-  font-size: 0.85rem;
-}
-
-.instagram-tag {
-  display: inline-flex;
-  align-items: center;
-  padding: 0.3rem 0.75rem;
-  border-radius: 999px;
-  background: rgba(255,255,255,0.12);
-  font-size: 0.85rem;
-  font-weight: 700;
+.instagram-embed-card .instagram-media {
+  min-width: 0 !important;
+  width: 100% !important;
+  margin: 0 auto !important;
+  background: #fff !important;
+  border-radius: 8px !important;
 }
 
 .social-cta {
@@ -652,7 +538,6 @@ body::before {
   .hero-grid,
   .split-section,
   .tour-grid,
-  .instagram-grid,
   .testimonial-grid,
   .booking-panel,
   .callout,
@@ -669,6 +554,10 @@ body::before {
   .social-cta {
     align-items: flex-start;
     flex-direction: column;
+  }
+
+  .instagram-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 
   .form-grid {
@@ -699,6 +588,10 @@ body::before {
 
   .nav-actions {
     gap: 0.75rem;
+  }
+
+  .instagram-grid {
+    grid-template-columns: 1fr;
   }
 }
 

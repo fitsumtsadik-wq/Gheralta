@@ -1,4 +1,4 @@
-import { useMemo, useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
 
 const destinations = [
   {
@@ -46,42 +46,18 @@ const tripThemes = [
 const instagramHighlights = [
   {
     title: 'Lalibela Sunrise',
-    tag: 'Heritage',
-    note: 'Morning light, sacred sites, and a calm beginning to your journey.',
-    accent: 'heritage',
+    type: 'post',
     url: 'https://www.instagram.com/p/C1Sz0ucCBQV/',
-    handle: '@gheralta_tours',
-    avatar: 'VG',
-    location: 'Lalibela',
-    time: '2h ago',
-    likes: '2.4K',
-    comments: '68',
   },
   {
     title: 'Simien Views',
-    tag: 'Adventure',
-    note: 'Highland trails, dramatic terrain, and unforgettable panoramas.',
-    accent: 'adventure',
+    type: 'post',
     url: 'https://www.instagram.com/p/DU8eJ1-CGR9/',
-    handle: '@gheralta_tours',
-    avatar: 'VG',
-    location: 'Simien',
-    time: '1d ago',
-    likes: '3.1K',
-    comments: '94',
   },
   {
-    title: 'Local Encounters',
-    tag: 'Culture',
-    note: 'Real moments with communities, rituals, and everyday traditions.',
-    accent: 'culture',
-    url: 'https://www.instagram.com/stories/highlights/18007963883317352/',
-    handle: '@gheralta_tours',
-    avatar: 'VG',
-    location: 'Omo Valley',
-    time: '3d ago',
-    likes: '1.8K',
-    comments: '47',
+    title: 'Gheralta Moment',
+    type: 'post',
+    url: 'https://www.instagram.com/p/DXtu1cXjVn8/',
   },
 ]
 
@@ -115,6 +91,25 @@ function App() {
   const [inquiry, setInquiry] = useState(initialForm)
   const [status, setStatus] = useState('')
 
+  useEffect(() => {
+    if (window.instgrm?.Embeds) {
+      window.instgrm.Embeds.process()
+      return
+    }
+
+    const existingScript = document.querySelector('script[src="https://www.instagram.com/embed.js"]')
+    if (existingScript) {
+      existingScript.addEventListener('load', () => window.instgrm?.Embeds?.process(), { once: true })
+      return
+    }
+
+    const script = document.createElement('script')
+    script.src = 'https://www.instagram.com/embed.js'
+    script.async = true
+    script.onload = () => window.instgrm?.Embeds?.process()
+    document.body.appendChild(script)
+  }, [])
+
   const currentDestination = useMemo(
     () => destinations.find((item) => item.name === activeDestination) ?? destinations[0],
     [activeDestination],
@@ -144,13 +139,39 @@ function App() {
     setStatus('Your email draft is ready. Please send it to confirm your inquiry.')
   }
 
+  const handleBrandClick = (event) => {
+    event.preventDefault()
+    window.history.replaceState(null, '', window.location.pathname)
+
+    const start = window.scrollY
+    const duration = 800
+    const startTime = performance.now()
+
+    const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3)
+
+    const animateScroll = (currentTime) => {
+      const progress = Math.min((currentTime - startTime) / duration, 1)
+      const eased = easeOutCubic(progress)
+
+      window.scrollTo(0, start * (1 - eased))
+
+      if (progress < 1) {
+        requestAnimationFrame(animateScroll)
+      }
+    }
+
+    requestAnimationFrame(animateScroll)
+  }
+
   return (
     <div className="page-shell">
       <header className="hero">
         <nav className="topbar">
           <div>
-            <p className="brand-mark">Visit Gheralta</p>
-            <p className="brand-note">Adventure • Culture • Authentic Journey</p>
+            <a href="#top" className="brand-link" onClick={handleBrandClick}>
+              <p className="brand-mark">Visit Gheralta</p>
+              <p className="brand-note">Adventure • Culture • Authentic Journey</p>
+            </a>
           </div>
           <div className="nav-actions">
             <a href="#tours">Tours</a>
@@ -160,10 +181,10 @@ function App() {
           </div>
         </nav>
 
-        <div className="hero-grid">
+        <div id="top" className="hero-grid">
           <div className="hero-copy">
             <p className="eyebrow">Curated Ethiopia travel experiences</p>
-            <h1>Explore Ethiopia with Visit Gheralta — where adventure meets culture.</h1>
+            <h1>Explore Northern Ethiopia with Visit Gheralta, where adventure meets culture</h1>
             <p className="hero-text">
               A vibrant, interactive travel experience designed for explorers who want immersive heritage, scenic routes, and a seamless planning journey.
             </p>
@@ -255,34 +276,16 @@ function App() {
           </div>
           <div className="instagram-grid">
             {instagramHighlights.map((item) => (
-              <a
-                key={item.title}
-                href={item.url}
-                target="_blank"
-                rel="noreferrer"
-                className={`instagram-card instagram-card--${item.accent}`}
-              >
-                <div className="instagram-card-header">
-                  <div className="instagram-card-avatar" aria-hidden="true">{item.avatar}</div>
-                  <div>
-                    <p className="instagram-card-handle">{item.handle}</p>
-                    <p className="instagram-card-meta">{item.location} • {item.time}</p>
-                  </div>
-                </div>
-                <div className="instagram-card-media" aria-hidden="true" />
-                <div className="instagram-card-actions" aria-hidden="true">
-                  <span>♡</span>
-                  <span>💬</span>
-                  <span>↗</span>
-                </div>
-                <div className="instagram-card-content">
-                  <p className="instagram-likes">{item.likes} likes</p>
-                  <p className="instagram-caption">
-                    <span>{item.handle}</span> {item.note}
-                  </p>
-                  <p className="instagram-comment-link">View all {item.comments} comments</p>
-                </div>
-              </a>
+              <article key={item.title} className="instagram-embed-card">
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-captioned
+                  data-instgrm-permalink={item.url}
+                  data-instgrm-version="14"
+                >
+                  <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
+                </blockquote>
+              </article>
             ))}
           </div>
           <div className="social-cta">
