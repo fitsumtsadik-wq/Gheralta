@@ -76,6 +76,14 @@ const tripadvisorReviews = [
   { text: '"Top class service from start to finish. We\'ll be back!"', name: 'Marco L.', source: 'Danakil Depression' },
 ]
 
+const galleryImages = [
+  { src: '/gallery/fresco-saints.jpg', caption: 'Ancient saints fresco inside Abune Yemata Guh' },
+  { src: '/gallery/cave-murals.jpg', caption: 'Cave ceiling murals — Gheralta church interior' },
+  { src: '/gallery/rock-church.jpg', caption: 'Rock-hewn church with local priest, Tigray highlands' },
+  { src: '/gallery/ceiling-fresco.jpg', caption: 'Ornate ceiling fresco, Maryam Korkor' },
+  { src: '/gallery/priest-summit.jpg', caption: 'On the summit trail, Abune Yemata Guh' },
+]
+
 const instagramHighlights = [
   {
     title: 'Lalibela Sunrise',
@@ -231,6 +239,7 @@ const getMangoReply = (question) => {
 
 function App() {
   const [activeDestination, setActiveDestination] = useState(destinations[0].name)
+  const [galleryIndex, setGalleryIndex] = useState(0)
   const [inquiry, setInquiry] = useState(initialForm)
   const [status, setStatus] = useState('')
   const [isMangoOpen, setIsMangoOpen] = useState(false)
@@ -602,6 +611,46 @@ function App() {
                 <p>{item}</p>
               </div>
             ))}
+          </div>
+        </section>
+
+        <section className="section gallery-section">
+          <div className="section-heading">
+            <p className="eyebrow">Photo gallery</p>
+            <h2>See what awaits you in Gheralta</h2>
+          </div>
+          <div className="gallery-frame">
+            <img
+              key={galleryIndex}
+              src={galleryImages[galleryIndex].src}
+              alt={galleryImages[galleryIndex].caption}
+              className="gallery-img"
+            />
+            <button
+              className="gallery-btn gallery-btn--prev"
+              onClick={() => setGalleryIndex((i) => (i - 1 + galleryImages.length) % galleryImages.length)}
+              aria-label="Previous photo"
+            >
+              &#8249;
+            </button>
+            <button
+              className="gallery-btn gallery-btn--next"
+              onClick={() => setGalleryIndex((i) => (i + 1) % galleryImages.length)}
+              aria-label="Next photo"
+            >
+              &#8250;
+            </button>
+            <p className="gallery-caption">{galleryImages[galleryIndex].caption}</p>
+            <div className="gallery-dots" aria-hidden="true">
+              {galleryImages.map((_, i) => (
+                <button
+                  key={i}
+                  className={i === galleryIndex ? 'gallery-dot gallery-dot--active' : 'gallery-dot'}
+                  onClick={() => setGalleryIndex(i)}
+                  aria-label={`View photo ${i + 1}`}
+                />
+              ))}
+            </div>
           </div>
         </section>
 
