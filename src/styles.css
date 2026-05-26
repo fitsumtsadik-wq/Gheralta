@@ -370,6 +370,13 @@ body::before {
   margin-top: 0;
 }
 
+.tour-price {
+  display: inline-flex;
+  margin-top: 0.8rem;
+  color: var(--accent);
+  font-size: 1.45rem;
+}
+
 .instagram-grid {
   grid-template-columns: repeat(3, minmax(0, 1fr));
 }

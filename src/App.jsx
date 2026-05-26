@@ -2,22 +2,22 @@ import { useEffect, useMemo, useState } from 'react'
 
 const destinations = [
   {
-    name: 'Lalibela',
-    subtitle: 'Churches carved from stone',
-    description: 'Walk through sacred history, dramatic landscapes, and a spiritual journey that feels timeless.',
-    tag: 'Heritage',
+    name: 'Abune Yemata Guh',
+    subtitle: 'The famous sky church climb',
+    description: 'A thrilling sacred climb to one of Tigray’s most unforgettable rock-hewn churches, with sweeping highland views from the Gheralta cliffs.',
+    tag: 'From $185',
   },
   {
-    name: 'Simien Mountains',
-    subtitle: 'Epic trails and dramatic peaks',
-    description: 'A thrilling escape into rugged terrain, steep ravines, and unforgettable sunrise views.',
-    tag: 'Adventure',
+    name: 'Gheralta Churches',
+    subtitle: 'Two days of mountain churches',
+    description: 'A compact circuit through the churches in the sky, ancient monastic art, sandstone towers, and the legendary beauty of the Gheralta Massif.',
+    tag: 'From $249',
   },
   {
-    name: 'Omo Valley',
-    subtitle: 'Culture, rituals, and raw landscapes',
+    name: 'Axum & Tigray',
+    subtitle: 'Ancient history and highland adventure',
     description: 'Meet living traditions and experience one of Africa’s most culturally rich regions.',
-    tag: 'Culture',
+    tag: 'From $349',
   },
 ]
 
@@ -30,17 +30,32 @@ const experienceHighlights = [
 
 const tripThemes = [
   {
-    label: 'Cultural Discovery',
-    copy: 'Old churches, festivals, artisan villages, and soul-stirring heritage walks.',
+    label: 'Abune Yemata Guh Day Trip',
+    copy: 'The famous sky church climb, a high-adrenaline pilgrimage into the sandstone heart of Gheralta.',
+    price: '$185',
   },
   {
-    label: 'Adventure Trails',
-    copy: 'Mountain hikes, dramatic viewpoints, and nature-rich routes built for explorers.',
+    label: '2-Day Gheralta Churches Tour',
+    copy: 'A short, powerful circuit through Abune Yemata, Maryam Korkor, mountain views, and ancient church art.',
+    price: '$249',
   },
   {
-    label: 'Slow Travel',
-    copy: 'Thoughtful itineraries that help you stay, connect, and absorb every moment.',
+    label: 'Al-Nejashi Mosque Day Trip',
+    copy: 'A sacred interfaith journey to Africa’s first mosque, Sahaba tombs, and nearby Wukro Cherkos.',
+    price: '$99',
   },
+  {
+    label: '3-Day Tigray & Axum Highlights',
+    copy: 'A compact expedition linking Axum’s ancient monuments with Gheralta’s iconic highland climbs.',
+    price: '$349',
+  },
+]
+
+const mangoDeals = [
+  'Abune Yemata Guh Day Trip - $185',
+  '2-Day Gheralta Churches Tour - $249',
+  'Al-Nejashi Mosque Day Trip - $99',
+  '3-Day Tigray & Axum Highlights - $349',
 ]
 
 const instagramHighlights = [
@@ -79,9 +94,9 @@ const testimonials = [
 const initialForm = {
   name: '',
   email: '',
-  destination: 'Lalibela',
+  destination: 'Abune Yemata Guh Day Trip',
   travelers: '2',
-  tripStyle: 'Cultural Discovery',
+  tripStyle: 'Adventure',
   dates: '',
   message: '',
 }
@@ -96,7 +111,7 @@ const mangoSuggestions = [
 const initialMangoMessages = [
   {
     from: 'mango',
-    text: 'Hi, I am Mango. Ask me anything about planning a Northern Ethiopia trip.',
+    text: 'Selam! I am Ask Mango 🥭. Ask me about Gheralta tours, prices, routes, packing, history, or which adventure fits your vibe.',
   },
 ]
 
@@ -104,38 +119,50 @@ const getMangoReply = (question) => {
   const message = question.toLowerCase()
 
   if (message.includes('time') || message.includes('season') || message.includes('weather')) {
-    return 'The best travel months are usually October to March, when the weather is milder and skies are clearer for churches, mountains, and scenic routes.'
+    return 'Great question 🌤️. October to March is usually the sweet spot: clearer skies, cooler highland air, and better light for those “wait, is this real?” Gheralta views.'
   }
 
   if (message.includes('day') || message.includes('long') || message.includes('itinerary')) {
-    return 'For a first visit, 5 to 8 days works well. Lalibela can fit into 2 to 3 days, while Gheralta, Axum, and the Simien Mountains need more time.'
+    return 'If time is tight, pick the $185 Abune Yemata day trip or the $249 two-day Gheralta churches tour. If you want history plus adventure, the 3-day Tigray & Axum highlights route is $349 and has more “wow, I need a minute” moments. 😄'
   }
 
   if (message.includes('pack') || message.includes('bring') || message.includes('wear')) {
-    return 'Pack comfortable walking shoes, sun protection, light layers, a modest outfit for churches, a reusable water bottle, and a jacket for cool highland evenings.'
+    return 'Pack comfy hiking shoes, sun protection, light layers, a modest church outfit, water, and a cool-evening jacket. Also bring courage for Abune Yemata. Mango brings moral support, but sadly no climbing shoes. 🥭'
   }
 
   if (message.includes('family') || message.includes('kid') || message.includes('children')) {
-    return 'Yes, many routes can work for families. Shorter walks, flexible pacing, and private guides make the trip easier for children and older travelers.'
+    return 'Yes, with the right pacing 👨‍👩‍👧. Families may prefer Al-Nejashi Mosque at $99 or gentler church routes. Abune Yemata is spectacular, but it is not the “casual Sunday stroll” of the group.'
   }
 
-  if (message.includes('price') || message.includes('cost') || message.includes('budget')) {
-    return 'Costs depend on dates, hotel style, group size, and route. Use the inquiry form with your travel dates and Mango recommends asking for a custom quote.'
+  if (message.includes('price') || message.includes('cost') || message.includes('budget') || message.includes('deal')) {
+    return `Here are the current featured deals I know: ${mangoDeals.join(', ')}. Prices can still depend on dates, group size, and logistics, so use the inquiry form for a final quote.`
   }
 
   if (message.includes('safe') || message.includes('security')) {
-    return 'Travel conditions can change. Mango recommends confirming the current route, guide availability, and local travel advice before booking.'
+    return 'Smart traveler question ✅. Travel conditions can change, so confirm the route, guide availability, and current local advice before booking. Mango likes adventure, not surprises.'
   }
 
-  if (message.includes('lalibela')) {
-    return 'Lalibela is best for rock-hewn churches, spiritual history, and meaningful cultural guiding. Many travelers spend 2 or 3 days there.'
+  if (message.includes('abune') || message.includes('yemata') || message.includes('sky church')) {
+    return 'Abune Yemata Guh is the legendary sky church: part hike, part pilgrimage, part “who put a church up there?!” The day trip is listed from $185 and rewards brave legs with unreal cliffside beauty.'
   }
 
-  if (message.includes('simien') || message.includes('mountain')) {
-    return 'The Simien Mountains are best for dramatic views, hiking, wildlife, and cool highland air. Add extra days if you want a slower trekking pace.'
+  if (message.includes('gheralta') || message.includes('church')) {
+    return 'Gheralta is sandstone drama, ancient silence, and churches tucked into the mountains like history is playing hide and seek. The 2-day churches tour is listed from $249.'
   }
 
-  return 'Mango can help with routes, timing, packing, family travel, and what to expect. For exact prices or availability, send the inquiry form after asking your travel question.'
+  if (message.includes('axum') || message.includes('aksum')) {
+    return 'Axum is where ancient Ethiopia feels enormous: stelae, royal history, and deep heritage. The 3-day Tigray & Axum highlights tour is listed from $349 and pairs history with Gheralta adventure.'
+  }
+
+  if (message.includes('nejashi') || message.includes('mosque') || message.includes('islam')) {
+    return 'Al-Nejashi Mosque is a beautiful interfaith stop tied to the First Hijra and early Islamic history in Africa. The day trip is listed from $99 and also includes nearby Wukro Cherkos.'
+  }
+
+  if (message.includes('joke') || message.includes('funny')) {
+    return 'Travel joke? Why did the hiker bring a ladder to Gheralta? Because the churches already had the best upstairs seating. 😄'
+  }
+
+  return 'Mango’s short answer: if you want adrenaline, choose Abune Yemata; if you want a balanced sacred mountain route, choose the 2-day Gheralta tour; if you love history, add Axum or Al-Nejashi. Ask me for prices, routes, packing, or a tiny travel joke. 🥭'
 }
 
 function App() {
@@ -267,7 +294,7 @@ function App() {
             <div className="hero-actions">
               <a href="#tours" className="btn btn-primary">Explore tours</a>
               <a href="#contact" className="btn btn-secondary">Plan my trip</a>
-              <button type="button" className="btn btn-secondary" onClick={() => setIsMangoOpen(true)}>Talk to Mango</button>
+              <button type="button" className="btn btn-secondary" onClick={() => setIsMangoOpen(true)}>Ask Mango</button>
             </div>
             <div className="hero-stats">
               <div>
@@ -323,6 +350,7 @@ function App() {
               <article key={theme.label} className="tour-card">
                 <p className="tour-label">{theme.label}</p>
                 <p>{theme.copy}</p>
+                <strong className="tour-price">{theme.price}</strong>
               </article>
             ))}
           </div>
@@ -404,9 +432,9 @@ function App() {
           <div className="mango-suggestion">
             <div>
               <p className="mango-suggestion-title">Have travel questions?</p>
-              <p>Talk to Mango for quick guidance before sending your inquiry.</p>
+              <p>Ask Mango for prices, deals, routes, and quick travel guidance before sending your inquiry.</p>
             </div>
-            <button type="button" className="btn btn-secondary" onClick={() => setIsMangoOpen(true)}>Talk to Mango</button>
+            <button type="button" className="btn btn-secondary" onClick={() => setIsMangoOpen(true)}>Ask Mango</button>
           </div>
           <div className="booking-panel">
             <div>
@@ -435,12 +463,10 @@ function App() {
                 <label className="form-field">
                   <span>Destination</span>
                   <select name="destination" value={inquiry.destination} onChange={handleChange}>
-                    <option>Lalibela</option>
-                    <option>Simien Mountains</option>
-                    <option>Omo Valley</option>
-                    <option>Gondar</option>
-                    <option>Harar</option>
-                    <option>Addis Ababa</option>
+                    <option>Abune Yemata Guh Day Trip</option>
+                    <option>2-Day Gheralta Churches Tour</option>
+                    <option>Al-Nejashi Mosque Day Trip</option>
+                    <option>3-Day Tigray & Axum Highlights</option>
                   </select>
                 </label>
 
@@ -452,9 +478,9 @@ function App() {
                 <label className="form-field">
                   <span>Trip style</span>
                   <select name="tripStyle" value={inquiry.tripStyle} onChange={handleChange}>
-                    <option>Cultural Discovery</option>
-                    <option>Adventure Trails</option>
-                    <option>Slow Travel</option>
+                    <option>Adventure</option>
+                    <option>Heritage</option>
+                    <option>Culture</option>
                     <option>Custom Itinerary</option>
                   </select>
                 </label>
@@ -499,14 +525,14 @@ function App() {
 
       <div className={isMangoOpen ? 'mango-chat open' : 'mango-chat'}>
         <button type="button" className="mango-launcher" onClick={() => setIsMangoOpen((value) => !value)}>
-          Mango
+          Ask Mango
         </button>
         {isMangoOpen && (
           <section className="mango-panel" aria-label="Mango travel chatbot">
             <div className="mango-panel-header">
               <div>
-                <p className="mango-name">Mango</p>
-                <p className="mango-status">Travel question assistant</p>
+                <p className="mango-name">Ask Mango</p>
+                <p className="mango-status">Friendly travel assistant</p>
               </div>
               <button type="button" className="mango-close" onClick={() => setIsMangoOpen(false)} aria-label="Close Mango chat">
                 x
