@@ -735,6 +735,72 @@ main,
   color: var(--accent);
 }
 
+/* TripAdvisor review cards */
+.ta-review-card {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  flex-direction: column;
+  cursor: pointer;
+}
+
+.ta-review-card:hover {
+  border-color: rgba(52, 224, 161, 0.3);
+  box-shadow: 0 24px 50px rgba(10, 5, 3, 0.3), 0 0 0 1px rgba(52, 224, 161, 0.15);
+}
+
+.ta-card-stars {
+  color: var(--ta-green);
+  font-size: 1rem;
+  letter-spacing: 1px;
+  margin-bottom: 0.6rem;
+}
+
+.ta-card-footer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 0.5rem;
+  margin-top: auto;
+  padding-top: 1rem;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.ta-card-location {
+  display: block;
+  font-size: 0.78rem;
+  color: var(--text-muted);
+  margin-top: 0.15rem;
+}
+
+.ta-card-source {
+  font-size: 0.72rem;
+  font-weight: 700;
+  color: var(--ta-green);
+  background: rgba(52, 224, 161, 0.1);
+  border: 1px solid rgba(52, 224, 161, 0.2);
+  border-radius: 999px;
+  padding: 0.2rem 0.6rem;
+  white-space: nowrap;
+}
+
+.ta-section-cta {
+  display: flex;
+  gap: 1rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+}
+
+.ta-strip {
+  cursor: pointer;
+  text-decoration: none;
+}
+
+.ta-strip:hover .ta-track {
+  animation-play-state: paused;
+}
+
 .split-section {
   display: grid;
   grid-template-columns: 1fr 1fr;

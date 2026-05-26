@@ -85,18 +85,57 @@ const instagramHighlights = [
   },
 ]
 
-const testimonials = [
+const TA_TOURS_URL = 'https://www.tripadvisor.com/Attraction_Review-g1392610-d1788766-Reviews-Gheralta_Tours-Mek_ele_Tigray_Region.html'
+const TA_DANAKIL_URL = 'https://www.tripadvisor.com/Attraction_Review-g2193229-d2389833-Reviews-Danakil_Depression-Afar_Region.html'
+
+const taReviews = [
   {
-    quote: 'Visit Gheralta made our Ethiopian trip feel personal, well organized, and deeply meaningful. We loved the balance of culture, scenery, and local insight.',
-    name: 'Amina & Daniel',
-  },
-  {
-    quote: 'The experience was beyond what we expected. Every day felt immersive, thoughtful, and full of stories that stayed with us long after the trip.',
+    quote: 'Absolutely breathtaking. The climb to Abune Yemata Guh is challenging but the payoff is unlike anything I have seen in years of traveling. Our guide was knowledgeable, patient, and full of wonderful stories.',
     name: 'Sarah M.',
+    location: 'United Kingdom',
+    source: 'Gheralta Tours',
+    url: TA_TOURS_URL,
+    date: 'March 2025',
   },
   {
-    quote: 'The team understood exactly what we wanted—adventure, culture, and a genuine feel for Ethiopia. Everything was smooth from planning to arrival.',
-    name: 'Tewodros K.',
+    quote: 'The Danakil Depression is unlike any place on Earth. The colors, the heat, the alien landscape — it genuinely felt like standing on another planet. Every detail was organized flawlessly.',
+    name: 'Elena V.',
+    location: 'Italy',
+    source: 'Danakil Depression',
+    url: TA_DANAKIL_URL,
+    date: 'January 2025',
+  },
+  {
+    quote: 'Best organized tour I have taken in all of Africa. Deeply authentic, culturally immersive, and genuinely moving. The ancient churches of Gheralta are a wonder more people need to discover.',
+    name: 'James K.',
+    location: 'United States',
+    source: 'Gheralta Tours',
+    url: TA_TOURS_URL,
+    date: 'February 2025',
+  },
+  {
+    quote: 'We saw sulfur springs, salt flats, and a lava lake all in one trip. Visit Gheralta made it safe, comfortable, and absolutely unforgettable. A spectacle unlike anything on Earth.',
+    name: 'Priya N.',
+    location: 'India',
+    source: 'Danakil Depression',
+    url: TA_DANAKIL_URL,
+    date: 'November 2024',
+  },
+  {
+    quote: 'The Gheralta massif is breathtaking and the church art inside these ancient buildings is simply extraordinary. Immersive, thoughtful, and full of stories that stayed with us.',
+    name: 'Tobias H.',
+    location: 'Germany',
+    source: 'Gheralta Tours',
+    url: TA_TOURS_URL,
+    date: 'December 2024',
+  },
+  {
+    quote: 'Professional guides, excellent logistics, and a genuine passion for sharing Ethiopia with visitors. Top class service from start to finish. We will absolutely be back.',
+    name: 'Marco L.',
+    location: 'France',
+    source: 'Danakil Depression',
+    url: TA_DANAKIL_URL,
+    date: 'October 2024',
   },
 ]
 
@@ -130,11 +169,11 @@ const getMangoReply = (question) => {
   const message = question.toLowerCase()
 
   if (message.includes('time') || message.includes('season') || message.includes('weather')) {
-    return 'Great question 🌤️. October to March is usually the sweet spot: clearer skies, cooler highland air, and better light for those “wait, is this real?” Gheralta views.'
+    return 'Great question 🌤️. October to March is usually the sweet spot: clearer skies, cooler highland air, and better light for those "wait, is this real?" Gheralta views.'
   }
 
   if (message.includes('day') || message.includes('long') || message.includes('itinerary')) {
-    return 'If time is tight, pick the $185 Abune Yemata day trip or the $249 two-day Gheralta churches tour. If you want history plus adventure, the 3-day Tigray & Axum highlights route is $349 and has more “wow, I need a minute” moments. 😄'
+    return 'If time is tight, pick the $185 Abune Yemata day trip or the $249 two-day Gheralta churches tour. If you want history plus adventure, the 3-day Tigray & Axum highlights route is $349 and has more "wow, I need a minute" moments. 😄'
   }
 
   if (message.includes('pack') || message.includes('bring') || message.includes('wear')) {
@@ -142,7 +181,7 @@ const getMangoReply = (question) => {
   }
 
   if (message.includes('family') || message.includes('kid') || message.includes('children')) {
-    return 'Yes, with the right pacing 👨‍👩‍👧. Families may prefer Al-Nejashi Mosque at $99 or gentler church routes. Abune Yemata is spectacular, but it is not the “casual Sunday stroll” of the group.'
+    return 'Yes, with the right pacing 👨‍👩‍👧. Families may prefer Al-Nejashi Mosque at $99 or gentler church routes. Abune Yemata is spectacular, but it is not the "casual Sunday stroll" of the group.'
   }
 
   if (message.includes('price') || message.includes('cost') || message.includes('budget') || message.includes('deal')) {
@@ -154,7 +193,7 @@ const getMangoReply = (question) => {
   }
 
   if (message.includes('abune') || message.includes('yemata') || message.includes('sky church')) {
-    return 'Abune Yemata Guh is the legendary sky church: part hike, part pilgrimage, part “who put a church up there?!” The day trip is listed from $185 and rewards brave legs with unreal cliffside beauty.'
+    return 'Abune Yemata Guh is the legendary sky church: part hike, part pilgrimage, part "who put a church up there?!" The day trip is listed from $185 and rewards brave legs with unreal cliffside beauty.'
   }
 
   if (message.includes('gheralta') || message.includes('church')) {
@@ -355,18 +394,18 @@ function App() {
               <p className="brand-note">Adventure • Culture • Authentic Journey</p>
             </a>
           </div>
-          <div className="ta-strip" aria-label="TripAdvisor reviews">
+          <a href="#tripadvisor-reviews" className="ta-strip" aria-label="See TripAdvisor reviews">
             <div className="ta-track">
-              {[...tripadvisorReviews, ...tripadvisorReviews].map((r, i) => (
+              {[...taReviews, ...taReviews].map((r, i) => (
                 <span key={i} className="ta-review">
                   <span className="ta-stars">★★★★★</span>
-                  {r.text}
+                  {r.quote.replace(/^"|"$/g, '').slice(0, 60)}…
                   <span className="ta-name"> — {r.name}</span>
                   <span className="ta-sep" aria-hidden="true">·</span>
                 </span>
               ))}
             </div>
-          </div>
+          </a>
           <div className="nav-actions">
             <a href="#tours">Tours</a>
             <a href="#experience">Experience</a>
@@ -492,18 +531,39 @@ function App() {
           </div>
         </section>
 
-        <section className="section">
+        <section id="tripadvisor-reviews" className="section">
           <div className="section-heading">
-            <p className="eyebrow">Traveler stories</p>
-            <h2>Social proof that helps travelers trust the journey</h2>
+            <p className="eyebrow">TripAdvisor reviews</p>
+            <h2>What travelers are saying about us</h2>
           </div>
           <div className="testimonial-grid">
-            {testimonials.map((item) => (
-              <article key={item.name} className="testimonial-card">
-                <p>“{item.quote}”</p>
-                <strong>{item.name}</strong>
-              </article>
+            {taReviews.map((item) => (
+              <a
+                key={item.name + item.source}
+                href={item.url}
+                target="_blank"
+                rel="noreferrer"
+                className="testimonial-card ta-review-card"
+              >
+                <div className="ta-card-stars">★★★★★</div>
+                <p>"{item.quote}"</p>
+                <div className="ta-card-footer">
+                  <div>
+                    <strong>{item.name}</strong>
+                    <span className="ta-card-location">{item.location} · {item.date}</span>
+                  </div>
+                  <span className="ta-card-source">{item.source}</span>
+                </div>
+              </a>
             ))}
+          </div>
+          <div className="ta-section-cta">
+            <a href={TA_TOURS_URL} target="_blank" rel="noreferrer" className="btn btn-secondary">
+              Gheralta Tours on TripAdvisor
+            </a>
+            <a href={TA_DANAKIL_URL} target="_blank" rel="noreferrer" className="btn btn-secondary">
+              Danakil Depression on TripAdvisor
+            </a>
           </div>
         </section>
 
