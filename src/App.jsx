@@ -316,15 +316,8 @@ function App() {
         <nav className="topbar">
           <div>
             <a href="#top" className="brand-link animated-brand" onClick={handleBrandClick} aria-label="Visit Gheralta home">
-              <span className="brand-fallback">Visit Gheralta</span>
-              <span className="brand-camel" aria-hidden="true">
-                <span className="brand-camel-body" />
-                <span className="brand-camel-neck" />
-                <span className="brand-camel-head" />
-                <span className="brand-camel-leg brand-camel-leg--front" />
-                <span className="brand-camel-leg brand-camel-leg--back" />
-              </span>
-              <p className="brand-mark" aria-hidden="true">
+              <span className="brand-camel" aria-hidden="true">🐪</span>
+              <p className="brand-mark" aria-label="Visit Gheralta">
                 {'Visit Gheralta'.split('').map((letter, index) => (
                   <span
                     key={`${letter}-${index}`}
