@@ -77,11 +77,21 @@ const tripadvisorReviews = [
 ]
 
 const galleryImages = [
-  { src: '/gallery/fresco-saints.jpg', caption: 'Ancient saints fresco inside Abune Yemata Guh' },
-  { src: '/gallery/cave-murals.jpg', caption: 'Cave ceiling murals — Gheralta church interior' },
-  { src: '/gallery/rock-church.jpg', caption: 'Rock-hewn church with local priest, Tigray highlands' },
-  { src: '/gallery/ceiling-fresco.jpg', caption: 'Ornate ceiling fresco, Maryam Korkor' },
-  { src: '/gallery/priest-summit.jpg', caption: 'On the summit trail, Abune Yemata Guh' },
+  { src: '/gallery/gheralta-tower.jpg', caption: 'The Gheralta tower — one of Africa\'s most dramatic rock formations' },
+  { src: '/gallery/cave-hiker.jpg', caption: 'Through a cave window — the Gheralta cliff face at golden hour' },
+  { src: '/gallery/priest-cliff-edge.jpg', caption: 'An elder priest rests at the cliff edge, Tigray highlands' },
+  { src: '/gallery/priest-candles.jpg', caption: 'Orthodox priest with golden cross in a candlelit church interior' },
+  { src: '/gallery/priest-mural.jpg', caption: 'A deacon welcomes visitors beside an ancient horse fresco' },
+  { src: '/gallery/priest-summit.jpg', caption: 'On the summit trail of Abune Yemata Guh' },
+  { src: '/gallery/fresco-saints.jpg', caption: 'Saints fresco inside Abune Yemata Guh, painted centuries ago' },
+  { src: '/gallery/ceiling-fresco.jpg', caption: 'Celestial ceiling fresco, Maryam Korkor church' },
+  { src: '/gallery/cave-murals.jpg', caption: 'Biblical cave murals preserved in the Gheralta highlands' },
+  { src: '/gallery/rock-church.jpg', caption: 'Rock-hewn church at the base of the Gheralta massif' },
+  { src: '/gallery/rock-climber.jpg', caption: 'Sport climbing on Gheralta\'s iconic sandstone walls' },
+  { src: '/gallery/stone-steps.jpg', caption: 'Ancient stone path leading to a Tigray monastery' },
+  { src: '/gallery/hyrax-cave.jpg', caption: 'Rock Hyrax — the unexpected resident of Gheralta\'s cliffs' },
+  { src: '/gallery/hyrax-rocks.jpg', caption: 'Rock Hyrax — a surprise encounter on the mountain trail' },
+  { src: '/gallery/sandgrouse.jpg', caption: 'Four-banded Sandgrouse — wildlife of the Tigray highlands' },
 ]
 
 const instagramHighlights = [
