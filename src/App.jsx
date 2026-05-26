@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useMemo, useRef, useState } from 'react'
 
 const destinations = [
   {
@@ -111,9 +111,11 @@ const mangoSuggestions = [
 const initialMangoMessages = [
   {
     from: 'mango',
-    text: 'Selam! I am Ask Mango 🥭. Ask me about Gheralta tours, prices, routes, packing, history, or which adventure fits your vibe.',
+    text: 'Selam! I am Mango. Ask me about Gheralta tours, prices, routes, packing, history, or which adventure fits your vibe. 🥭',
   },
 ]
+
+const whatsappUrl = 'https://wa.me/251930694177'
 
 const getMangoReply = (question) => {
   const message = question.toLowerCase()
@@ -162,7 +164,7 @@ const getMangoReply = (question) => {
     return 'Travel joke? Why did the hiker bring a ladder to Gheralta? Because the churches already had the best upstairs seating. 😄'
   }
 
-  return 'Mango’s short answer: if you want adrenaline, choose Abune Yemata; if you want a balanced sacred mountain route, choose the 2-day Gheralta tour; if you love history, add Axum or Al-Nejashi. Ask me for prices, routes, packing, or a tiny travel joke. 🥭'
+  return { text: '😊 That is outside my travel training for now, but the real Mango can help you directly on WhatsApp: +251930694177.', whatsapp: true }
 }
 
 function App() {
@@ -172,6 +174,8 @@ function App() {
   const [isMangoOpen, setIsMangoOpen] = useState(false)
   const [mangoInput, setMangoInput] = useState('')
   const [mangoMessages, setMangoMessages] = useState(initialMangoMessages)
+  const [visibleInstagramPosts, setVisibleInstagramPosts] = useState(() => new Set())
+  const mangoMessagesEndRef = useRef(null)
 
   useEffect(() => {
     if (window.instgrm?.Embeds) {
@@ -191,6 +195,51 @@ function App() {
     script.onload = () => window.instgrm?.Embeds?.process()
     document.body.appendChild(script)
   }, [])
+
+  useEffect(() => {
+    if (!isMangoOpen) {
+      return
+    }
+
+    mangoMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
+  }, [isMangoOpen, mangoMessages])
+
+  useEffect(() => {
+    const cards = Array.from(document.querySelectorAll('[data-instagram-card]'))
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        setVisibleInstagramPosts((previous) => {
+          const next = new Set(previous)
+
+          entries.forEach((entry) => {
+            const title = entry.target.getAttribute('data-instagram-card')
+
+            if (!title) {
+              return
+            }
+
+            if (entry.isIntersecting) {
+              next.add(title)
+            } else {
+              next.delete(title)
+            }
+          })
+
+          return next
+        })
+      },
+      { rootMargin: '160px 0px', threshold: 0.18 },
+    )
+
+    cards.forEach((card) => observer.observe(card))
+
+    return () => observer.disconnect()
+  }, [])
+
+  useEffect(() => {
+    window.instgrm?.Embeds?.process()
+  }, [visibleInstagramPosts])
 
   const currentDestination = useMemo(
     () => destinations.find((item) => item.name === activeDestination) ?? destinations[0],
@@ -252,10 +301,15 @@ function App() {
       return
     }
 
+    const mangoReply = getMangoReply(question)
+    const replyMessage = typeof mangoReply === 'string'
+      ? { from: 'mango', text: mangoReply }
+      : { from: 'mango', ...mangoReply }
+
     setMangoMessages((previous) => [
       ...previous,
       { from: 'user', text: question },
-      { from: 'mango', text: getMangoReply(question) },
+      replyMessage,
     ])
     setMangoInput('')
     setIsMangoOpen(true)
@@ -269,6 +323,11 @@ function App() {
   return (
     <div className="page-shell">
       <header className="hero">
+        <div className="hero-cinema" aria-hidden="true">
+          <div className="hero-cinema-bg" />
+          <div className="hero-cinema-depth" />
+          <div className="hero-cinema-vignette" />
+        </div>
         <nav className="topbar">
           <div>
             <a href="#top" className="brand-link" onClick={handleBrandClick}>
@@ -381,15 +440,23 @@ function App() {
           </div>
           <div className="instagram-grid">
             {instagramHighlights.map((item) => (
-              <article key={item.title} className="instagram-embed-card">
-                <blockquote
-                  className="instagram-media"
-                  data-instgrm-captioned
-                  data-instgrm-permalink={item.url}
-                  data-instgrm-version="14"
-                >
-                  <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
-                </blockquote>
+              <article key={item.title} className="instagram-embed-card" data-instagram-card={item.title}>
+                {visibleInstagramPosts.has(item.title) ? (
+                  <blockquote
+                    className="instagram-media"
+                    data-instgrm-captioned
+                    data-instgrm-permalink={item.url}
+                    data-instgrm-version="14"
+                  >
+                    <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
+                  </blockquote>
+                ) : (
+                  <a href={item.url} target="_blank" rel="noreferrer" className="instagram-paused-card">
+                    <span>Instagram post</span>
+                    <strong>{item.title}</strong>
+                    <small>Preview pauses while off screen</small>
+                  </a>
+                )}
               </article>
             ))}
           </div>
@@ -531,7 +598,7 @@ function App() {
           <section className="mango-panel" aria-label="Mango travel chatbot">
             <div className="mango-panel-header">
               <div>
-                <p className="mango-name">Ask Mango</p>
+                <p className="mango-name">Mango</p>
                 <p className="mango-status">Friendly travel assistant</p>
               </div>
               <button type="button" className="mango-close" onClick={() => setIsMangoOpen(false)} aria-label="Close Mango chat">
@@ -540,10 +607,14 @@ function App() {
             </div>
             <div className="mango-messages">
               {mangoMessages.map((message, index) => (
-                <p key={`${message.from}-${index}`} className={`mango-message mango-message--${message.from}`}>
-                  {message.text}
-                </p>
+                <div key={`${message.from}-${index}`} className={`mango-message mango-message--${message.from}`}>
+                  <p>{message.text}</p>
+                  {message.whatsapp && (
+                    <a href={whatsappUrl} target="_blank" rel="noreferrer">Message the real Mango on WhatsApp</a>
+                  )}
+                </div>
               ))}
+              <div ref={mangoMessagesEndRef} />
             </div>
             <div className="mango-quick-actions">
               {mangoSuggestions.map((suggestion) => (

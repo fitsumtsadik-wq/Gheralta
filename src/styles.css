@@ -2,9 +2,8 @@
   font-family: 'Inter', sans-serif;
   color: #f7f4ee;
   background:
-    radial-gradient(circle at top left, rgba(255, 146, 61, 0.24), transparent 26%),
-    radial-gradient(circle at bottom right, rgba(255, 215, 168, 0.16), transparent 20%),
-    linear-gradient(135deg, #120903 0%, #24110a 38%, #58260d 100%);
+    radial-gradient(circle at top left, rgba(255, 196, 111, 0.18), transparent 28%),
+    linear-gradient(135deg, #090604 0%, #1a0d08 46%, #382012 100%);
   line-height: 1.5;
   font-weight: 400;
   color-scheme: dark;
@@ -31,6 +30,7 @@ body {
   min-width: 320px;
   min-height: 100vh;
   position: relative;
+  overflow-x: hidden;
 }
 
 body::before {
@@ -50,14 +50,83 @@ body::before {
 }
 
 .page-shell {
-  width: min(1200px, calc(100% - 2rem));
-  margin: 0 auto;
+  width: 100%;
+  margin: 0;
   padding: 1rem 0 2rem;
   position: relative;
 }
 
 .hero {
-  padding: 1.25rem 0 2rem;
+  min-height: 94vh;
+  padding: 1.25rem max(1rem, calc((100vw - 1200px) / 2)) 4rem;
+  position: relative;
+  overflow: hidden;
+  border-radius: 0 0 34px 34px;
+  isolation: isolate;
+}
+
+.hero-cinema {
+  position: absolute;
+  inset: 0;
+  z-index: -2;
+  overflow: hidden;
+}
+
+.hero-cinema-bg,
+.hero-cinema-depth,
+.hero-cinema-vignette {
+  position: absolute;
+  inset: -7%;
+}
+
+.hero-cinema-bg {
+  background-image: url('/gher-door-view.jpg');
+  background-size: cover;
+  background-position: 52% 42%;
+  filter: saturate(0.92) contrast(1.08);
+  transform-origin: center;
+  animation: cinematicDrift 20s cubic-bezier(0.2, 0.72, 0.14, 1) infinite alternate;
+}
+
+.hero-cinema-depth {
+  background-image:
+    linear-gradient(90deg, rgba(5, 3, 2, 0.7), rgba(5, 3, 2, 0.1) 45%, rgba(5, 3, 2, 0.58)),
+    url('/danakil-sunset.jpg');
+  background-size: cover;
+  background-position: center;
+  mix-blend-mode: soft-light;
+  opacity: 0.42;
+  clip-path: ellipse(44% 34% at 78% 28%);
+  animation: depthFloat 16s cubic-bezier(0.2, 0.72, 0.14, 1) infinite alternate;
+}
+
+.hero-cinema-vignette {
+  inset: 0;
+  background:
+    radial-gradient(circle at 52% 45%, transparent 0 28%, rgba(9, 6, 4, 0.2) 52%, rgba(9, 6, 4, 0.82) 100%),
+    linear-gradient(180deg, rgba(9, 6, 4, 0.34), rgba(9, 6, 4, 0.18) 45%, #090604 100%);
+}
+
+@keyframes cinematicDrift {
+  from {
+    transform: scale(1.04) translate3d(-1.5%, -0.8%, 0) rotate(-0.3deg);
+  }
+
+  to {
+    transform: scale(1.12) translate3d(1.2%, 1.4%, 0) rotate(0.45deg);
+  }
+}
+
+@keyframes depthFloat {
+  from {
+    transform: translate3d(1.5%, -1%, 0) scale(1.05) rotate(0.2deg);
+    opacity: 0.28;
+  }
+
+  to {
+    transform: translate3d(-1%, 1%, 0) scale(1.12) rotate(-0.4deg);
+    opacity: 0.5;
+  }
 }
 
 .topbar {
@@ -67,6 +136,8 @@ body::before {
   align-items: center;
   margin-bottom: 2rem;
   padding: 0.15rem 0;
+  position: relative;
+  z-index: 2;
 }
 
 .brand-link {
@@ -133,6 +204,16 @@ body::before {
   grid-template-columns: 1.2fr 0.8fr;
   gap: 2rem;
   align-items: center;
+  min-height: 70vh;
+  position: relative;
+  z-index: 1;
+}
+
+main,
+.footer {
+  width: min(1200px, calc(100% - 2rem));
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .eyebrow {
@@ -321,7 +402,24 @@ body::before {
 
 .section {
   margin: 2.5rem 0;
-  padding: 1rem 0;
+  padding: 1.25rem 0;
+  animation: sectionReveal both;
+  animation-timeline: view();
+  animation-range: entry 0% cover 32%;
+}
+
+@keyframes sectionReveal {
+  from {
+    opacity: 0;
+    transform: translateY(28px);
+    filter: blur(8px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+    filter: blur(0);
+  }
 }
 
 .section-heading {
@@ -394,6 +492,40 @@ body::before {
   margin: 0 auto !important;
   background: #fff !important;
   border-radius: 8px !important;
+}
+
+.instagram-paused-card {
+  min-height: 496px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.5rem;
+  padding: 1rem;
+  color: #fffaf3;
+  text-decoration: none;
+  border-radius: 12px;
+  background:
+    linear-gradient(180deg, rgba(9, 6, 4, 0.08), rgba(9, 6, 4, 0.86)),
+    url('/gher-door-view.jpg') center / cover;
+}
+
+.instagram-paused-card span {
+  align-self: flex-start;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  background: rgba(9, 6, 4, 0.58);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.instagram-paused-card strong {
+  font-family: 'Playfair Display', serif;
+  font-size: 1.55rem;
+}
+
+.instagram-paused-card small {
+  color: var(--accent);
+  font-weight: 800;
 }
 
 .social-cta {
@@ -653,6 +785,18 @@ body::before {
   font-size: 0.92rem;
 }
 
+.mango-message p {
+  margin: 0;
+}
+
+.mango-message a {
+  display: inline-flex;
+  margin-top: 0.65rem;
+  color: var(--accent);
+  font-weight: 900;
+  text-decoration: none;
+}
+
 .mango-message--mango {
   align-self: flex-start;
   background: rgba(255,255,255,0.08);
@@ -785,6 +929,16 @@ body::before {
 
   .mango-panel {
     width: calc(100vw - 1rem);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 1ms !important;
+    animation-iteration-count: 1 !important;
+    scroll-behavior: auto !important;
   }
 }
 
