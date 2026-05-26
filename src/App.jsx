@@ -636,6 +636,7 @@ function App() {
               src={galleryImages[galleryIndex].src}
               alt={galleryImages[galleryIndex].caption}
               className="gallery-img"
+              onError={(e) => { e.currentTarget.style.display = 'none' }}
             />
             <button
               className="gallery-btn gallery-btn--prev"
