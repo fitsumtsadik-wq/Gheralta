@@ -94,6 +94,22 @@ body::before {
   color: #ffd7a8;
 }
 
+.advisory-links {
+  display: flex;
+  align-items: center;
+  gap: 0.45rem;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+
+.advisory-links-label {
+  font-size: 0.75rem;
+  opacity: 0.7;
+  white-space: nowrap;
+  margin-right: 0.1rem;
+}
+
 .advisory-link {
   color: #ffd7a8;
   text-decoration: underline;

@@ -415,14 +415,15 @@ function App() {
         <p>
           <strong>Travel Advisory:</strong> Northern Ethiopia routes are currently operational. Confirm conditions with your guide before departure.
         </p>
-        <a
-          href="https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ethiopia.html"
-          target="_blank"
-          rel="noreferrer"
-          className="advisory-link"
-        >
-          State Dept. advisory →
-        </a>
+        <div className="advisory-links">
+          <span className="advisory-links-label">Official advisories:</span>
+          <a href="https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ethiopia.html" target="_blank" rel="noreferrer" className="advisory-link">🇺🇸 US</a>
+          <a href="https://www.gov.uk/foreign-travel-advice/ethiopia" target="_blank" rel="noreferrer" className="advisory-link">🇬🇧 UK</a>
+          <a href="https://travel.gc.ca/destinations/ethiopia" target="_blank" rel="noreferrer" className="advisory-link">🇨🇦 CA</a>
+          <a href="https://www.smartraveller.gov.au/destinations/africa/ethiopia" target="_blank" rel="noreferrer" className="advisory-link">🇦🇺 AU</a>
+          <a href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays-destination/ethiopie/" target="_blank" rel="noreferrer" className="advisory-link">🇫🇷 FR</a>
+          <a href="https://www.auswaertiges-amt.de/de/service/laender/aethiopien-node" target="_blank" rel="noreferrer" className="advisory-link">🇩🇪 DE</a>
+        </div>
       </div>
       <div className="page-shell">
       <header className="hero" ref={heroRef}>
