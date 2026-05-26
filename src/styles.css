@@ -146,6 +146,9 @@ body::before {
   display: inline-flex;
   flex-direction: column;
   gap: 0.1rem;
+  position: relative;
+  min-width: 18rem;
+  padding-top: 1.85rem;
 }
 
 .brand-link:hover .brand-mark,
@@ -155,9 +158,188 @@ body::before {
 
 .brand-mark {
   font-family: 'Playfair Display', serif;
-  font-size: 1.35rem;
+  font-size: clamp(2rem, 2vw + 1.2rem, 3.25rem);
   margin: 0;
   letter-spacing: 0.02em;
+  line-height: 0.92;
+  white-space: nowrap;
+}
+
+.animated-brand .brand-mark {
+  display: inline-flex;
+}
+
+.brand-letter {
+  display: inline-block;
+  opacity: 0;
+  transform: translateY(-2.3rem) rotate(-10deg) scale(0.72);
+  animation: letterDrop 780ms cubic-bezier(0.17, 0.84, 0.28, 1.24) forwards;
+  animation-delay: calc(90ms * var(--letter-index) + 380ms);
+  transform-origin: bottom center;
+}
+
+.brand-letter--space {
+  width: 0.38em;
+}
+
+.brand-letter:first-child {
+  animation-name: firstLetterDrop;
+}
+
+.brand-camel {
+  position: absolute;
+  top: 0.05rem;
+  right: -2.6rem;
+  width: 3.5rem;
+  height: 1.5rem;
+  color: var(--accent);
+  transform-origin: 22% 88%;
+  animation: camelCross 4.8s cubic-bezier(0.42, 0, 0.16, 1) forwards;
+  z-index: 2;
+}
+
+.brand-camel-body,
+.brand-camel-neck,
+.brand-camel-head,
+.brand-camel-leg {
+  position: absolute;
+  display: block;
+  background: currentColor;
+}
+
+.brand-camel-body {
+  width: 2.05rem;
+  height: 0.62rem;
+  left: 0.72rem;
+  top: 0.48rem;
+  border-radius: 55% 55% 45% 45%;
+}
+
+.brand-camel-body::before {
+  content: '';
+  position: absolute;
+  width: 0.7rem;
+  height: 0.55rem;
+  left: 0.35rem;
+  top: -0.34rem;
+  background: currentColor;
+  border-radius: 70% 70% 35% 35%;
+}
+
+.brand-camel-neck {
+  width: 0.28rem;
+  height: 0.95rem;
+  left: 2.42rem;
+  top: 0.08rem;
+  border-radius: 999px;
+  transform: rotate(-20deg);
+  transform-origin: bottom center;
+}
+
+.brand-camel-head {
+  width: 0.62rem;
+  height: 0.38rem;
+  left: 2.68rem;
+  top: 0.08rem;
+  border-radius: 60% 45% 50% 50%;
+}
+
+.brand-camel-leg {
+  width: 0.18rem;
+  height: 0.72rem;
+  top: 0.98rem;
+  border-radius: 999px;
+  transform-origin: top center;
+  animation: camelLeg 420ms ease-in-out infinite alternate;
+}
+
+.brand-camel-leg--front {
+  left: 2.3rem;
+}
+
+.brand-camel-leg--back {
+  left: 1.1rem;
+  animation-delay: 180ms;
+}
+
+@keyframes letterDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-2.3rem) rotate(-10deg) scale(0.72);
+  }
+
+  62% {
+    opacity: 1;
+    transform: translateY(0.22rem) rotate(3deg) scale(1.08);
+  }
+
+  82% {
+    transform: translateY(-0.08rem) rotate(-1deg) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes firstLetterDrop {
+  0% {
+    opacity: 0;
+    transform: translateY(-2.3rem) rotate(-10deg) scale(0.72);
+  }
+
+  55% {
+    opacity: 1;
+    transform: translateY(0.22rem) rotate(3deg) scale(1.08);
+  }
+
+  72% {
+    transform: translateY(-0.08rem) rotate(-1deg) scale(0.98);
+  }
+
+  100% {
+    opacity: 1;
+    transform: translateY(0) rotate(0) scale(1);
+  }
+}
+
+@keyframes camelCross {
+  0% {
+    transform: translate3d(0, 0, 0) scaleX(-1) rotate(0deg);
+    opacity: 0;
+  }
+
+  8% {
+    opacity: 1;
+  }
+
+  68% {
+    transform: translate3d(-15.2rem, 0.08rem, 0) scaleX(-1) rotate(0deg);
+  }
+
+  78% {
+    transform: translate3d(-15.2rem, 0.08rem, 0) scaleX(1) rotate(0deg);
+  }
+
+  88% {
+    transform: translate3d(-15.55rem, 0.24rem, 0) scaleX(1) rotate(-68deg);
+  }
+
+  100% {
+    transform: translate3d(-15.55rem, 0.24rem, 0) scaleX(1) rotate(-58deg);
+    opacity: 1;
+  }
+}
+
+@keyframes camelLeg {
+  from {
+    transform: rotate(-10deg);
+  }
+
+  to {
+    transform: rotate(12deg);
+  }
 }
 
 .brand-note {
@@ -823,6 +1005,10 @@ main,
     align-items: flex-start;
   }
 
+  .brand-link {
+    min-width: min(18rem, calc(100vw - 2rem));
+  }
+
   .social-cta {
     align-items: flex-start;
     flex-direction: column;
@@ -867,6 +1053,19 @@ main,
     gap: 0.75rem;
   }
 
+  .brand-link {
+    min-width: calc(100vw - 1rem);
+  }
+
+  .brand-mark {
+    font-size: clamp(1.75rem, 10vw, 2.45rem);
+  }
+
+  .brand-camel {
+    right: 0;
+    transform: scale(0.82);
+  }
+
   .instagram-grid {
     grid-template-columns: 1fr;
   }
@@ -888,6 +1087,15 @@ main,
     animation-duration: 1ms !important;
     animation-iteration-count: 1 !important;
     scroll-behavior: auto !important;
+  }
+
+  .brand-letter {
+    opacity: 1;
+    transform: none;
+  }
+
+  .brand-camel {
+    display: none;
   }
 }
 

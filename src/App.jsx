@@ -315,8 +315,25 @@ function App() {
         </div>
         <nav className="topbar">
           <div>
-            <a href="#top" className="brand-link" onClick={handleBrandClick}>
-              <p className="brand-mark">Visit Gheralta</p>
+            <a href="#top" className="brand-link animated-brand" onClick={handleBrandClick} aria-label="Visit Gheralta home">
+              <span className="brand-camel" aria-hidden="true">
+                <span className="brand-camel-body" />
+                <span className="brand-camel-neck" />
+                <span className="brand-camel-head" />
+                <span className="brand-camel-leg brand-camel-leg--front" />
+                <span className="brand-camel-leg brand-camel-leg--back" />
+              </span>
+              <p className="brand-mark" aria-hidden="true">
+                {'Visit Gheralta'.split('').map((letter, index) => (
+                  <span
+                    key={`${letter}-${index}`}
+                    className={letter === ' ' ? 'brand-letter brand-letter--space' : 'brand-letter'}
+                    style={{ '--letter-index': index }}
+                  >
+                    {letter === ' ' ? '\u00A0' : letter}
+                  </span>
+                ))}
+              </p>
               <p className="brand-note">Adventure • Culture • Authentic Journey</p>
             </a>
           </div>
