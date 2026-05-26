@@ -316,6 +316,7 @@ function App() {
         <nav className="topbar">
           <div>
             <a href="#top" className="brand-link animated-brand" onClick={handleBrandClick} aria-label="Visit Gheralta home">
+              <span className="brand-fallback">Visit Gheralta</span>
               <span className="brand-camel" aria-hidden="true">
                 <span className="brand-camel-body" />
                 <span className="brand-camel-neck" />

@@ -156,6 +156,16 @@ body::before {
   color: var(--accent);
 }
 
+.brand-fallback {
+  position: absolute;
+  inset: 1.85rem auto auto 0;
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2rem, 2vw + 1.2rem, 3.25rem);
+  line-height: 0.92;
+  color: rgba(247, 244, 238, 0.3);
+  pointer-events: none;
+}
+
 .brand-mark {
   font-family: 'Playfair Display', serif;
   font-size: clamp(2rem, 2vw + 1.2rem, 3.25rem);
@@ -167,11 +177,13 @@ body::before {
 
 .animated-brand .brand-mark {
   display: inline-flex;
+  position: relative;
+  z-index: 1;
 }
 
 .brand-letter {
   display: inline-block;
-  opacity: 0;
+  opacity: 1;
   transform: translateY(-2.3rem) rotate(-10deg) scale(0.72);
   animation: letterDrop 780ms cubic-bezier(0.17, 0.84, 0.28, 1.24) forwards;
   animation-delay: calc(90ms * var(--letter-index) + 380ms);
@@ -188,14 +200,15 @@ body::before {
 
 .brand-camel {
   position: absolute;
-  top: 0.05rem;
-  right: -2.6rem;
-  width: 3.5rem;
-  height: 1.5rem;
+  top: -0.05rem;
+  right: -1.4rem;
+  width: 4.8rem;
+  height: 2.25rem;
   color: var(--accent);
   transform-origin: 22% 88%;
   animation: camelCross 4.8s cubic-bezier(0.42, 0, 0.16, 1) forwards;
   z-index: 2;
+  filter: drop-shadow(0 8px 12px rgba(0, 0, 0, 0.45));
 }
 
 .brand-camel-body,
@@ -208,63 +221,63 @@ body::before {
 }
 
 .brand-camel-body {
-  width: 2.05rem;
-  height: 0.62rem;
-  left: 0.72rem;
-  top: 0.48rem;
+  width: 2.75rem;
+  height: 0.82rem;
+  left: 0.88rem;
+  top: 0.7rem;
   border-radius: 55% 55% 45% 45%;
 }
 
 .brand-camel-body::before {
   content: '';
   position: absolute;
-  width: 0.7rem;
-  height: 0.55rem;
-  left: 0.35rem;
-  top: -0.34rem;
+  width: 0.9rem;
+  height: 0.72rem;
+  left: 0.44rem;
+  top: -0.48rem;
   background: currentColor;
   border-radius: 70% 70% 35% 35%;
 }
 
 .brand-camel-neck {
-  width: 0.28rem;
-  height: 0.95rem;
-  left: 2.42rem;
-  top: 0.08rem;
+  width: 0.36rem;
+  height: 1.22rem;
+  left: 3.22rem;
+  top: 0.16rem;
   border-radius: 999px;
   transform: rotate(-20deg);
   transform-origin: bottom center;
 }
 
 .brand-camel-head {
-  width: 0.62rem;
-  height: 0.38rem;
-  left: 2.68rem;
-  top: 0.08rem;
+  width: 0.78rem;
+  height: 0.48rem;
+  left: 3.52rem;
+  top: 0.16rem;
   border-radius: 60% 45% 50% 50%;
 }
 
 .brand-camel-leg {
-  width: 0.18rem;
-  height: 0.72rem;
-  top: 0.98rem;
+  width: 0.22rem;
+  height: 0.9rem;
+  top: 1.42rem;
   border-radius: 999px;
   transform-origin: top center;
   animation: camelLeg 420ms ease-in-out infinite alternate;
 }
 
 .brand-camel-leg--front {
-  left: 2.3rem;
+  left: 3rem;
 }
 
 .brand-camel-leg--back {
-  left: 1.1rem;
+  left: 1.38rem;
   animation-delay: 180ms;
 }
 
 @keyframes letterDrop {
   0% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(-2.3rem) rotate(-10deg) scale(0.72);
   }
 
@@ -285,7 +298,7 @@ body::before {
 
 @keyframes firstLetterDrop {
   0% {
-    opacity: 0;
+    opacity: 1;
     transform: translateY(-2.3rem) rotate(-10deg) scale(0.72);
   }
 
@@ -315,19 +328,19 @@ body::before {
   }
 
   68% {
-    transform: translate3d(-15.2rem, 0.08rem, 0) scaleX(-1) rotate(0deg);
+    transform: translate3d(-15.9rem, 0.08rem, 0) scaleX(-1) rotate(0deg);
   }
 
   78% {
-    transform: translate3d(-15.2rem, 0.08rem, 0) scaleX(1) rotate(0deg);
+    transform: translate3d(-15.9rem, 0.08rem, 0) scaleX(1) rotate(0deg);
   }
 
   88% {
-    transform: translate3d(-15.55rem, 0.24rem, 0) scaleX(1) rotate(-68deg);
+    transform: translate3d(-16.15rem, 0.3rem, 0) scaleX(1) rotate(-68deg);
   }
 
   100% {
-    transform: translate3d(-15.55rem, 0.24rem, 0) scaleX(1) rotate(-58deg);
+    transform: translate3d(-16.15rem, 0.3rem, 0) scaleX(1) rotate(-58deg);
     opacity: 1;
   }
 }
