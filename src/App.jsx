@@ -33,6 +33,12 @@ const tripThemes = [
     label: 'Abune Yemata Guh Day Trip',
     copy: 'The famous sky church climb, a high-adrenaline pilgrimage into the sandstone heart of Gheralta.',
     price: '$185',
+    climbProfile: {
+      footwear: 'Barefoot on the sacred summit. Grippy shoes required for the approach trail.',
+      exposure: 'High — narrow ledge traversal and open cliff faces with 200m+ drops.',
+      safety: 'Fixed ropes on key sections. Experienced local guide mandatory.',
+      fitness: 'Moderate to high. 45-minute climb with scrambling. Suitable for active travelers.',
+    },
   },
   {
     label: '2-Day Gheralta Churches Tour',
@@ -147,6 +153,7 @@ const initialForm = {
   tripStyle: 'Adventure',
   dates: '',
   message: '',
+  heightComfort: '',
 }
 
 const mangoSuggestions = [
@@ -309,6 +316,7 @@ function App() {
       `*Travelers:* ${inquiry.travelers}`,
       `*Trip Style:* ${inquiry.tripStyle}`,
       `*Preferred Dates:* ${inquiry.dates || 'Flexible'}`,
+      inquiry.heightComfort ? `*Height Comfort:* ${inquiry.heightComfort}` : '',
       inquiry.message ? `\n*Message:*\n${inquiry.message}` : '',
     ].filter(Boolean).join('\n')
 
@@ -370,6 +378,20 @@ function App() {
 
   return (
     <div className="page-shell">
+      <div className="advisory-banner" role="status">
+        <span>⚠</span>
+        <p>
+          <strong>Travel Advisory:</strong> Northern Ethiopia routes are currently operational. Confirm conditions with your guide before departure.
+        </p>
+        <a
+          href="https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ethiopia.html"
+          target="_blank"
+          rel="noreferrer"
+          className="advisory-link"
+        >
+          State Dept. advisory →
+        </a>
+      </div>
       <header className="hero" ref={heroRef}>
         <div className="hero-cinema" aria-hidden="true">
           <div className="hero-cinema-bg" />
@@ -481,6 +503,33 @@ function App() {
                 <p className="tour-label">{theme.label}</p>
                 <p>{theme.copy}</p>
                 <strong className="tour-price">{theme.price}</strong>
+                {theme.climbProfile && (
+                  <div className="climb-profile">
+                    <p className="climb-profile-title">Climb Profile</p>
+                    <div className="climb-profile-rows">
+                      <div className="climb-profile-row">
+                        <span className="climb-profile-icon">👟</span>
+                        <strong>Footwear</strong>
+                        <span>{theme.climbProfile.footwear}</span>
+                      </div>
+                      <div className="climb-profile-row">
+                        <span className="climb-profile-icon">⚡</span>
+                        <strong>Exposure</strong>
+                        <span>{theme.climbProfile.exposure}</span>
+                      </div>
+                      <div className="climb-profile-row">
+                        <span className="climb-profile-icon">🪢</span>
+                        <strong>Safety</strong>
+                        <span>{theme.climbProfile.safety}</span>
+                      </div>
+                      <div className="climb-profile-row">
+                        <span className="climb-profile-icon">💪</span>
+                        <strong>Fitness</strong>
+                        <span>{theme.climbProfile.fitness}</span>
+                      </div>
+                    </div>
+                  </div>
+                )}
               </article>
             ))}
           </div>
@@ -641,6 +690,37 @@ function App() {
                   <input type="text" name="dates" value={inquiry.dates} onChange={handleChange} placeholder="Anytime or exact dates" />
                 </label>
               </div>
+
+              {inquiry.destination === 'Abune Yemata Guh Day Trip' && (
+                <div className="safety-block">
+                  <p className="safety-block-title">Safety Screening</p>
+                  <div className="safety-alert">
+                    <span className="safety-alert-icon">⚠</span>
+                    <p>
+                      Abune Yemata Guh involves exposed ledge traversal and drops of 200m+. Please answer honestly so we can prepare your experience safely.
+                    </p>
+                  </div>
+                  <p className="safety-block-title" style={{ marginTop: '0.25rem' }}>How comfortable are you with heights?</p>
+                  <div className="safety-options">
+                    {[
+                      { value: 'comfortable', label: 'Comfortable — no issues with heights or exposure' },
+                      { value: 'moderate', label: 'Moderate — some discomfort but I can manage' },
+                      { value: 'anxious', label: 'Height anxiety — I will need extra guidance' },
+                    ].map(({ value, label }) => (
+                      <label key={value} className="safety-radio">
+                        <input
+                          type="radio"
+                          name="heightComfort"
+                          value={value}
+                          checked={inquiry.heightComfort === value}
+                          onChange={handleChange}
+                        />
+                        {label}
+                      </label>
+                    ))}
+                  </div>
+                </div>
+              )}
 
               <label className="form-field full-width">
                 <span>Tell us what you want</span>
