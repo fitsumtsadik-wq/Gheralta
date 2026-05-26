@@ -58,6 +58,15 @@ const mangoDeals = [
   '3-Day Tigray & Axum Highlights - $349',
 ]
 
+const tripadvisorReviews = [
+  { text: '"Breathtaking climb — one of the best experiences of my life!"', name: 'Sarah M.', source: 'Gheralta Tours' },
+  { text: '"The Danakil is otherworldly. Colors you won\'t believe are real."', name: 'Elena V.', source: 'Danakil Depression' },
+  { text: '"Best organized tour in all of Ethiopia. Deeply authentic."', name: 'James K.', source: 'Gheralta Tours' },
+  { text: '"A spectacle unlike anything on Earth. Absolutely life-changing!"', name: 'Priya N.', source: 'Danakil Depression' },
+  { text: '"Immersive, thoughtful, and full of stories that stayed with us."', name: 'Tobias H.', source: 'Gheralta Tours' },
+  { text: '"Top class service from start to finish. We\'ll be back!"', name: 'Marco L.', source: 'Danakil Depression' },
+]
+
 const instagramHighlights = [
   {
     title: 'Lalibela Sunrise',
@@ -175,6 +184,8 @@ function App() {
   const [mangoInput, setMangoInput] = useState('')
   const [mangoMessages, setMangoMessages] = useState(initialMangoMessages)
   const mangoMessagesEndRef = useRef(null)
+  const heroRef = useRef(null)
+  const [isHeroVisible, setIsHeroVisible] = useState(true)
 
   useEffect(() => {
     if (window.instgrm?.Embeds) {
@@ -202,6 +213,17 @@ function App() {
 
     mangoMessagesEndRef.current?.scrollIntoView({ behavior: 'smooth', block: 'end' })
   }, [isMangoOpen, mangoMessages])
+
+  useEffect(() => {
+    const hero = heroRef.current
+    if (!hero) return
+    const observer = new IntersectionObserver(
+      ([entry]) => setIsHeroVisible(entry.isIntersecting),
+      { threshold: 0.08 },
+    )
+    observer.observe(hero)
+    return () => observer.disconnect()
+  }, [])
 
   useEffect(() => {
     const cards = Array.from(document.querySelectorAll('[data-instagram-card]'))
@@ -239,20 +261,20 @@ function App() {
   const handleSubmit = (event) => {
     event.preventDefault()
 
-    const subject = `Visit Gheralta inquiry - ${inquiry.destination}`
-    const body = [
-      `Name: ${inquiry.name}`,
-      `Email: ${inquiry.email}`,
-      `Destination: ${inquiry.destination}`,
-      `Travelers: ${inquiry.travelers}`,
-      `Trip style: ${inquiry.tripStyle}`,
-      `Dates: ${inquiry.dates || 'Flexible'}`,
-      '',
-      `Message: ${inquiry.message || 'No extra notes provided.'}`,
-    ].join('%0D%0A')
+    const lines = [
+      `*Visit Gheralta — Tour Inquiry*`,
+      ``,
+      `*Name:* ${inquiry.name}`,
+      `*Email:* ${inquiry.email}`,
+      `*Destination:* ${inquiry.destination}`,
+      `*Travelers:* ${inquiry.travelers}`,
+      `*Trip Style:* ${inquiry.tripStyle}`,
+      `*Preferred Dates:* ${inquiry.dates || 'Flexible'}`,
+      inquiry.message ? `\n*Message:*\n${inquiry.message}` : '',
+    ].filter(Boolean).join('\n')
 
-    window.location.href = `mailto:hello@visitgheralta.com?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`
-    setStatus('Your email draft is ready. Please send it to confirm your inquiry.')
+    window.open(`${whatsappUrl}?text=${encodeURIComponent(lines)}`, '_blank')
+    setStatus('Opening WhatsApp with your inquiry summary...')
   }
 
   const handleBrandClick = (event) => {
@@ -305,9 +327,11 @@ function App() {
     askMango(mangoInput)
   }
 
+  const isMangoShaking = !isHeroVisible && !isMangoOpen
+
   return (
     <div className="page-shell">
-      <header className="hero">
+      <header className="hero" ref={heroRef}>
         <div className="hero-cinema" aria-hidden="true">
           <div className="hero-cinema-bg" />
           <div className="hero-cinema-depth" />
@@ -330,6 +354,18 @@ function App() {
               </p>
               <p className="brand-note">Adventure • Culture • Authentic Journey</p>
             </a>
+          </div>
+          <div className="ta-strip" aria-label="TripAdvisor reviews">
+            <div className="ta-track">
+              {[...tripadvisorReviews, ...tripadvisorReviews].map((r, i) => (
+                <span key={i} className="ta-review">
+                  <span className="ta-stars">★★★★★</span>
+                  {r.text}
+                  <span className="ta-name"> — {r.name}</span>
+                  <span className="ta-sep" aria-hidden="true">·</span>
+                </span>
+              ))}
+            </div>
           </div>
           <div className="nav-actions">
             <a href="#tours">Tours</a>
@@ -494,7 +530,7 @@ function App() {
           <div className="booking-panel">
             <div>
               <p className="section-copy">
-                Share your destination, travel dates, and preferred style. We will open your email draft so you can send the inquiry directly to Visit Gheralta.
+                Share your destination, travel dates, and preferred style. Your inquiry will be summarized and sent directly via WhatsApp to Visit Gheralta.
               </p>
               <ul className="contact-points">
                 <li>Best for private trips, group travel, and custom planning</li>
@@ -559,7 +595,7 @@ function App() {
 
               <div className="form-actions">
                 <button type="submit" className="btn btn-primary">Send inquiry</button>
-                <p className="status-note">{status || 'You will be redirected to your email app with a prefilled message.'}</p>
+                <p className="status-note">{status || 'WhatsApp will open with your inquiry ready to send.'}</p>
               </div>
             </form>
           </div>
@@ -579,7 +615,11 @@ function App() {
       </footer>
 
       <div className={isMangoOpen ? 'mango-chat open' : 'mango-chat'}>
-        <button type="button" className="mango-launcher" onClick={() => setIsMangoOpen((value) => !value)}>
+        <button
+          type="button"
+          className={isMangoShaking ? 'mango-launcher mango-launcher--shaking' : 'mango-launcher'}
+          onClick={() => setIsMangoOpen((value) => !value)}
+        >
           Ask Mango
         </button>
         {isMangoOpen && (
