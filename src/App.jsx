@@ -322,6 +322,8 @@ function App() {
 
     window.open(`${whatsappUrl}?text=${encodeURIComponent(lines)}`, '_blank')
     setStatus('Opening WhatsApp with your inquiry summary...')
+    setInquiry(initialForm)
+    setTimeout(() => setStatus(''), 5000)
   }
 
   const handleBrandClick = (event) => {
@@ -334,6 +336,8 @@ function App() {
 
     const easeOutCubic = (value) => 1 - Math.pow(1 - value, 3)
 
+    document.documentElement.classList.add('js-scrolling')
+
     const animateScroll = (currentTime) => {
       const progress = Math.min((currentTime - startTime) / duration, 1)
       const eased = easeOutCubic(progress)
@@ -342,6 +346,8 @@ function App() {
 
       if (progress < 1) {
         requestAnimationFrame(animateScroll)
+      } else {
+        document.documentElement.classList.remove('js-scrolling')
       }
     }
 
@@ -586,9 +592,9 @@ function App() {
             <h2>What travelers are saying about us</h2>
           </div>
           <div className="testimonial-grid">
-            {taReviews.map((item) => (
+            {taReviews.map((item, index) => (
               <a
-                key={item.name + item.source}
+                key={`${item.name}-${item.date}-${index}`}
                 href={item.url}
                 target="_blank"
                 rel="noreferrer"

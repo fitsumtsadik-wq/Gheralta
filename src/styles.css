@@ -27,6 +27,11 @@ html {
   scroll-behavior: smooth;
 }
 
+/* Disable native smooth scroll during JS-animated scrolls (e.g. brand click) */
+html.js-scrolling {
+  scroll-behavior: auto;
+}
+
 * {
   box-sizing: border-box;
 }
