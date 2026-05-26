@@ -25,6 +25,8 @@
 
 html {
   scroll-behavior: smooth;
+  overflow-x: hidden;
+  width: 100%;
 }
 
 /* Disable native smooth scroll during JS-animated scrolls (e.g. brand click) */
