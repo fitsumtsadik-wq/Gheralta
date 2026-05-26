@@ -403,23 +403,6 @@ main,
 .section {
   margin: 2.5rem 0;
   padding: 1.25rem 0;
-  animation: sectionReveal both;
-  animation-timeline: view();
-  animation-range: entry 0% cover 32%;
-}
-
-@keyframes sectionReveal {
-  from {
-    opacity: 0;
-    transform: translateY(28px);
-    filter: blur(8px);
-  }
-
-  to {
-    opacity: 1;
-    transform: translateY(0);
-    filter: blur(0);
-  }
 }
 
 .section-heading {
@@ -492,40 +475,6 @@ main,
   margin: 0 auto !important;
   background: #fff !important;
   border-radius: 8px !important;
-}
-
-.instagram-paused-card {
-  min-height: 496px;
-  display: flex;
-  flex-direction: column;
-  justify-content: flex-end;
-  gap: 0.5rem;
-  padding: 1rem;
-  color: #fffaf3;
-  text-decoration: none;
-  border-radius: 12px;
-  background:
-    linear-gradient(180deg, rgba(9, 6, 4, 0.08), rgba(9, 6, 4, 0.86)),
-    url('/gher-door-view.jpg') center / cover;
-}
-
-.instagram-paused-card span {
-  align-self: flex-start;
-  padding: 0.3rem 0.65rem;
-  border-radius: 999px;
-  background: rgba(9, 6, 4, 0.58);
-  font-size: 0.78rem;
-  font-weight: 900;
-}
-
-.instagram-paused-card strong {
-  font-family: 'Playfair Display', serif;
-  font-size: 1.55rem;
-}
-
-.instagram-paused-card small {
-  color: var(--accent);
-  font-weight: 800;
 }
 
 .social-cta {

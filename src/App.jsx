@@ -174,7 +174,6 @@ function App() {
   const [isMangoOpen, setIsMangoOpen] = useState(false)
   const [mangoInput, setMangoInput] = useState('')
   const [mangoMessages, setMangoMessages] = useState(initialMangoMessages)
-  const [visibleInstagramPosts, setVisibleInstagramPosts] = useState(() => new Set())
   const mangoMessagesEndRef = useRef(null)
 
   useEffect(() => {
@@ -209,37 +208,23 @@ function App() {
 
     const observer = new IntersectionObserver(
       (entries) => {
-        setVisibleInstagramPosts((previous) => {
-          const next = new Set(previous)
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            return
+          }
 
-          entries.forEach((entry) => {
-            const title = entry.target.getAttribute('data-instagram-card')
-
-            if (!title) {
-              return
-            }
-
-            if (entry.isIntersecting) {
-              next.add(title)
-            } else {
-              next.delete(title)
-            }
+          entry.target.querySelectorAll('iframe').forEach((frame) => {
+            frame.contentWindow?.postMessage('{"method":"pause"}', '*')
           })
-
-          return next
         })
       },
-      { rootMargin: '160px 0px', threshold: 0.18 },
+      { rootMargin: '0px', threshold: 0.05 },
     )
 
     cards.forEach((card) => observer.observe(card))
 
     return () => observer.disconnect()
   }, [])
-
-  useEffect(() => {
-    window.instgrm?.Embeds?.process()
-  }, [visibleInstagramPosts])
 
   const currentDestination = useMemo(
     () => destinations.find((item) => item.name === activeDestination) ?? destinations[0],
@@ -441,22 +426,14 @@ function App() {
           <div className="instagram-grid">
             {instagramHighlights.map((item) => (
               <article key={item.title} className="instagram-embed-card" data-instagram-card={item.title}>
-                {visibleInstagramPosts.has(item.title) ? (
-                  <blockquote
-                    className="instagram-media"
-                    data-instgrm-captioned
-                    data-instgrm-permalink={item.url}
-                    data-instgrm-version="14"
-                  >
-                    <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
-                  </blockquote>
-                ) : (
-                  <a href={item.url} target="_blank" rel="noreferrer" className="instagram-paused-card">
-                    <span>Instagram post</span>
-                    <strong>{item.title}</strong>
-                    <small>Preview pauses while off screen</small>
-                  </a>
-                )}
+                <blockquote
+                  className="instagram-media"
+                  data-instgrm-captioned
+                  data-instgrm-permalink={item.url}
+                  data-instgrm-version="14"
+                >
+                  <a href={item.url} target="_blank" rel="noreferrer">{item.title}</a>
+                </blockquote>
               </article>
             ))}
           </div>
