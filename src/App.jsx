@@ -6,21 +6,21 @@ const destinations = [
     subtitle: 'The famous sky church climb',
     description: 'A thrilling sacred climb to one of Tigray\'s most unforgettable rock-hewn churches, with sweeping highland views from the Gheralta cliffs.',
     tag: 'From $185',
-    metrics: { fitness: 'Moderate', vertigoRisk: 'Extreme — vertical cliff', ropesRequired: 'Yes' },
+    metrics: { fitness: 'Moderate', vertigoRisk: 'Extreme, vertical cliff', ropesRequired: 'Yes' },
   },
   {
     name: 'Gheralta Churches',
     subtitle: 'Two days of mountain churches',
     description: 'A compact circuit through the churches in the sky, ancient monastic art, sandstone towers, and the legendary beauty of the Gheralta Massif.',
     tag: 'From $249',
-    metrics: { fitness: 'High — long treks', vertigoRisk: 'Moderate', ropesRequired: 'No' },
+    metrics: { fitness: 'High, long treks', vertigoRisk: 'Moderate', ropesRequired: 'No' },
   },
   {
     name: 'Axum & Tigray',
     subtitle: 'Ancient history and highland adventure',
     description: 'Meet living traditions and experience one of Africa\'s most culturally rich regions.',
     tag: 'From $349',
-    metrics: { fitness: 'Easy — mostly flat sites', vertigoRisk: 'Low', ropesRequired: 'No' },
+    metrics: { fitness: 'Easy, mostly flat sites', vertigoRisk: 'Low', ropesRequired: 'No' },
   },
 ]
 
@@ -38,7 +38,7 @@ const tripThemes = [
     price: '$185',
     climbProfile: {
       footwear: 'Barefoot on the sacred summit. Grippy shoes required for the approach trail.',
-      exposure: 'High — narrow ledge traversal and open cliff faces with 200m+ drops.',
+      exposure: 'High. Narrow ledge traversal and open cliff faces with 200m+ drops.',
       safety: 'Fixed ropes on key sections. Experienced local guide mandatory.',
       fitness: 'Moderate to high. 45-minute climb with scrambling. Suitable for active travelers.',
     },
@@ -409,7 +409,7 @@ function App() {
   const isMangoShaking = !isHeroVisible && !isMangoOpen
 
   return (
-    <div className="page-shell">
+    <>
       <div className="advisory-banner" role="status">
         <span>⚠</span>
         <p>
@@ -424,6 +424,7 @@ function App() {
           State Dept. advisory →
         </a>
       </div>
+      <div className="page-shell">
       <header className="hero" ref={heroRef}>
         <div className="hero-cinema" aria-hidden="true">
           <div className="hero-cinema-bg" />
@@ -730,7 +731,7 @@ function App() {
         <section className="section callout">
           <div>
             <p className="eyebrow">Ready to travel?</p>
-            <h2>Tell us what kind of journey you want — culture, adventure, or a mix of both.</h2>
+            <h2>Tell us what you are looking for: culture, adventure, or something in between.</h2>
           </div>
           <a href="#contact" className="btn btn-primary">Start planning</a>
         </section>
@@ -814,9 +815,9 @@ function App() {
                   <p className="safety-block-title" style={{ marginTop: '0.25rem' }}>How comfortable are you with heights?</p>
                   <div className="safety-options">
                     {[
-                      { value: 'comfortable', label: 'Comfortable — no issues with heights or exposure' },
-                      { value: 'moderate', label: 'Moderate — some discomfort but I can manage' },
-                      { value: 'anxious', label: 'Height anxiety — I will need extra guidance' },
+                      { value: 'comfortable', label: 'Comfortable with heights, no concerns' },
+                      { value: 'moderate', label: 'Some discomfort with heights, but manageable' },
+                      { value: 'anxious', label: 'I have height anxiety and may need extra support' },
                     ].map(({ value, label }) => (
                       <label key={value} className="safety-radio">
                         <input
@@ -915,6 +916,7 @@ function App() {
         )}
       </div>
     </div>
+    </>
   )
 }
 

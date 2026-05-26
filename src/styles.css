@@ -1683,6 +1683,26 @@ main .eyebrow::before {
 }
 
 @media (max-width: 768px) {
+  .instagram-grid {
+    display: flex !important;
+    flex-direction: row !important;
+    overflow-x: auto !important;
+    scroll-snap-type: x mandatory;
+    gap: 1rem;
+    padding: 0.5rem 1rem 1.25rem;
+    scrollbar-width: none;
+  }
+
+  .instagram-grid::-webkit-scrollbar {
+    display: none;
+  }
+
+  .instagram-embed-card {
+    flex: 0 0 82% !important;
+    scroll-snap-align: start;
+    min-width: 280px;
+  }
+
   .testimonial-grid {
     display: flex !important;
     overflow-x: auto !important;
