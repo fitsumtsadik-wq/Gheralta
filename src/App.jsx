@@ -4,20 +4,23 @@ const destinations = [
   {
     name: 'Abune Yemata Guh',
     subtitle: 'The famous sky church climb',
-    description: 'A thrilling sacred climb to one of Tigray’s most unforgettable rock-hewn churches, with sweeping highland views from the Gheralta cliffs.',
+    description: 'A thrilling sacred climb to one of Tigray\'s most unforgettable rock-hewn churches, with sweeping highland views from the Gheralta cliffs.',
     tag: 'From $185',
+    metrics: { fitness: 'Moderate', vertigoRisk: 'Extreme — vertical cliff', ropesRequired: 'Yes' },
   },
   {
     name: 'Gheralta Churches',
     subtitle: 'Two days of mountain churches',
     description: 'A compact circuit through the churches in the sky, ancient monastic art, sandstone towers, and the legendary beauty of the Gheralta Massif.',
     tag: 'From $249',
+    metrics: { fitness: 'High — long treks', vertigoRisk: 'Moderate', ropesRequired: 'No' },
   },
   {
     name: 'Axum & Tigray',
     subtitle: 'Ancient history and highland adventure',
-    description: 'Meet living traditions and experience one of Africa’s most culturally rich regions.',
+    description: 'Meet living traditions and experience one of Africa\'s most culturally rich regions.',
     tag: 'From $349',
+    metrics: { fitness: 'Easy — mostly flat sites', vertigoRisk: 'Low', ropesRequired: 'No' },
   },
 ]
 
@@ -47,12 +50,12 @@ const tripThemes = [
   },
   {
     label: 'Al-Nejashi Mosque Day Trip',
-    copy: 'A sacred interfaith journey to Africa’s first mosque, Sahaba tombs, and nearby Wukro Cherkos.',
+    copy: "A sacred interfaith journey to Africa's first mosque, Sahaba tombs, and nearby Wukro Cherkos.",
     price: '$99',
   },
   {
     label: '3-Day Tigray & Axum Highlights',
-    copy: 'A compact expedition linking Axum’s ancient monuments with Gheralta’s iconic highland climbs.',
+    copy: "A compact expedition linking Axum's ancient monuments with Gheralta's iconic highland climbs.",
     price: '$349',
   },
 ]
@@ -195,8 +198,12 @@ const getMangoReply = (question) => {
     return `Here are the current featured deals I know: ${mangoDeals.join(', ')}. Prices can still depend on dates, group size, and logistics, so use the inquiry form for a final quote.`
   }
 
-  if (message.includes('safe') || message.includes('security')) {
-    return 'Smart traveler question ✅. Travel conditions can change, so confirm the route, guide availability, and current local advice before booking. Mango likes adventure, not surprises.'
+  if (message.includes('safe') || message.includes('security') || message.includes('war') || message.includes('conflict')) {
+    return 'Your safety is our entire operational priority 🛡️. We track local logistics daily with local authorities and church priests. If a trail or road is ever compromised, we immediately pivot to a pre-mapped alternative route without a hitch. You are never left in the dark.'
+  }
+
+  if (message.includes('delay') || message.includes('flight') || message.includes('cancel')) {
+    return 'Logistics happen! ✈️ If your domestic flight into Mekele is delayed, our drivers wait at the airport indefinitely. We adjust the itinerary dynamically so you do not miss your sunset or church climbs. Our 24/7 WhatsApp hotline is always live.'
   }
 
   if (message.includes('abune') || message.includes('yemata') || message.includes('sky church')) {
@@ -478,6 +485,19 @@ function App() {
             <h2>{currentDestination.name}</h2>
             <p>{currentDestination.subtitle}</p>
             <p>{currentDestination.description}</p>
+            {currentDestination.metrics && (
+              <div className="hero-card-metrics">
+                <span className="metric-tag">
+                  🏃 Fitness: <strong>{currentDestination.metrics.fitness}</strong>
+                </span>
+                <span className="metric-tag">
+                  🧗 Exposure: <strong>{currentDestination.metrics.vertigoRisk}</strong>
+                </span>
+                <span className="metric-tag">
+                  🪢 Ropes: <strong>{currentDestination.metrics.ropesRequired}</strong>
+                </span>
+              </div>
+            )}
             <div className="pill-row">
               <span className="pill">{currentDestination.tag}</span>
             </div>
@@ -538,6 +558,32 @@ function App() {
                 )}
               </article>
             ))}
+          </div>
+
+          <div className="pricing-guarantee">
+            <h4 className="pricing-guarantee-title">The Visit Gheralta Transparent Pricing Guarantee</h4>
+            <p className="pricing-guarantee-sub">
+              Our price covers everything. No cash negotiations on the mountain, no hidden extras at the gate.
+            </p>
+            <div className="pricing-guarantee-grid">
+              <div>
+                <p className="pricing-col-head pricing-col-head--included">What is included</p>
+                <ul className="pricing-list">
+                  <li>All church entrance permits and priest blessings</li>
+                  <li>Local community scouts and dedicated hand-holders</li>
+                  <li>English-speaking certified guide and driver</li>
+                  <li>Round-trip transport from Hawzen / Mekele</li>
+                </ul>
+              </div>
+              <div>
+                <p className="pricing-col-head pricing-col-head--excluded">What to bring in pocket</p>
+                <ul className="pricing-list">
+                  <li>Souvenirs and personal artisan purchases</li>
+                  <li>Gratuities for exceptional service (entirely optional)</li>
+                  <li>Personal travel insurance</li>
+                </ul>
+              </div>
+            </div>
           </div>
         </section>
 
@@ -751,7 +797,7 @@ function App() {
       <footer className="footer">
         <div>
           <p className="brand-mark">Visit Gheralta</p>
-          <p>Let’s shape your next Ethiopian adventure together.</p>
+          <p>Let's shape your next Ethiopian adventure together.</p>
         </div>
         <div className="footer-links">
           <a href="https://www.facebook.com/profile.php?id=100069015475990" target="_blank" rel="noreferrer">Facebook</a>
