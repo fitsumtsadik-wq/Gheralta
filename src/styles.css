@@ -814,8 +814,10 @@ main .eyebrow::before {
   position: relative;
   border-radius: 24px;
   overflow: hidden;
-  aspect-ratio: 16 / 9;
-  max-height: 580px;
+  width: min(100%, 840px);
+  margin: 0 auto;
+  aspect-ratio: 4 / 3;
+  max-height: 560px;
   background: #090604;
   box-shadow: var(--shadow-lg);
 }
@@ -829,6 +831,7 @@ main .eyebrow::before {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  object-position: center;
   display: block;
   animation: galleryFadeIn 500ms ease both;
 }

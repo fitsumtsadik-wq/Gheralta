@@ -698,7 +698,7 @@ function App() {
         <section className="section gallery-section">
           <div className="section-heading">
             <p className="eyebrow">Photo gallery</p>
-            <h2>See what awaits you in Gheralta</h2>
+            <h2>See what awaits you with Visit Gheralta</h2>
           </div>
           <div className="gallery-frame">
             <img
