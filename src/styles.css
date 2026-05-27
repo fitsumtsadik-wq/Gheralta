@@ -164,16 +164,21 @@ body::before {
   left: 0;
   z-index: 1;
   transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
-  will-change: transform;
 }
 
 .individual-slide {
   flex: 0 0 100%;
   width: 100%;
   height: 100%;
-  background-size: cover;
-  background-position: center;
-  background-repeat: no-repeat;
+  position: relative;
+  overflow: hidden;
+}
+
+.individual-slide-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
   filter: saturate(0.92) contrast(1.08);
 }
 

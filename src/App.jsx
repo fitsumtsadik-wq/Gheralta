@@ -515,11 +515,16 @@ function App() {
             style={{ transform: `translateX(-${heroSlide * 100}%)` }}
           >
             {heroSlides.map((slide, i) => (
-              <div
-                key={slide.src}
-                className="individual-slide"
-                style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }}
-              />
+              <div key={slide.src} className="individual-slide">
+                <img
+                  src={slide.src}
+                  alt=""
+                  className="individual-slide-img"
+                  style={{ objectPosition: slide.position }}
+                  loading={i === 0 ? 'eager' : 'lazy'}
+                  decoding="async"
+                />
+              </div>
             ))}
           </div>
           <div className="hero-cinema-depth" />
