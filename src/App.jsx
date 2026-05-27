@@ -77,11 +77,11 @@ const tripadvisorReviews = [
 ]
 
 const heroSlides = [
-  { src: '/gher-door-view.jpg',             label: 'Gheralta Highlands, Tigray',      position: '52% 42%' },
-  { src: '/gallery/cave-hiker.jpg',          label: 'Gheralta Massif, Tigray',         position: 'center 35%' },
-  { src: '/gallery/gheralta-tower.jpg',      label: 'Gheralta Tower, Tigray',          position: 'center 30%' },
-  { src: '/gallery/priest-cliff-edge.jpg',   label: 'Abune Yemata Guh, Tigray',       position: 'center 40%' },
-  { src: '/gallery/rock-climber.jpg',        label: 'Rock Climbing, Gheralta Massif',  position: 'center' },
+  { src: '/gallery/(6)%20Instagram_files/619888013_18187379158360402_3873658630223713024_n.jpg', label: 'Gheralta Massif, Tigray',           position: 'center 30%' },
+  { src: '/gallery/(6)%20Instagram_files/529475343_18535216780016278_2592287229880635112_n.jpg', label: 'Rock-Hewn Churches, Gheralta',      position: 'center center' },
+  { src: '/gallery/(6)%20Instagram_files/617586496_18092066968794560_6388794971089486984_n.jpg', label: 'Cliff-edge Path, Tigray Highlands', position: 'center 40%' },
+  { src: '/gallery/(6)%20Instagram_files/491453233_18496078411031996_7762828447785695209_n.jpg', label: 'Ancient Rock Sanctuary, Tigray',    position: 'center 25%' },
+  { src: '/gallery/(6)%20Instagram_files/485055779_18491046733047269_4290468818570442406_n.jpg', label: 'Abune Yemata Guh, Tigray',          position: 'center 30%' },
 ]
 
 const galleryImages = [
@@ -100,6 +100,15 @@ const galleryImages = [
   { src: '/gallery/hyrax-cave.jpg', caption: 'Rock Hyrax — the unexpected resident of Gheralta\'s cliffs' },
   { src: '/gallery/hyrax-rocks.jpg', caption: 'Rock Hyrax — a surprise encounter on the mountain trail' },
   { src: '/gallery/sandgrouse.jpg', caption: 'Four-banded Sandgrouse — wildlife of the Tigray highlands' },
+  { src: '/gallery/(6)%20Instagram_files/626531084_18430895539114623_7031566793083046095_n.jpg', caption: 'Painted ceiling inside a Gheralta rock-hewn church' },
+  { src: '/gallery/(6)%20Instagram_files/618162176_18343992868224823_2956778451925505745_n.jpg', caption: 'Fresco dome ceiling — ancient art of the Tigray highlands' },
+  { src: '/gallery/(6)%20Instagram_files/495957339_18506286466036258_6720778916224891274_n.jpg', caption: 'Orthodox priest with candles in a candlelit church interior' },
+  { src: '/gallery/(6)%20Instagram_files/496029452_18506286448036258_7629443019956252107_n.jpg', caption: 'Priest holding an illuminated manuscript, Abune Yemata Guh' },
+  { src: '/gallery/(6)%20Instagram_files/654600098_18120346111542364_1753360814252715956_n.jpg', caption: 'Elder priest at the cliff cave entrance, Gheralta' },
+  { src: '/gallery/(6)%20Instagram_files/497773554_18507392041036258_2513702969595540035_n.jpg', caption: 'Tiny figure in the cave window — Abune Yemata Guh, Tigray' },
+  { src: '/gallery/(6)%20Instagram_files/514261272_3662027427275408_6936224872848259195_n.jpg', caption: 'Visitors inside a rock-hewn church, Gheralta highlands' },
+  { src: '/gallery/(6)%20Instagram_files/652388430_18086444507189152_172280430135454165_n.jpg', caption: 'Traditional Ethiopian dress at the cliff sanctuary, Gheralta' },
+  { src: '/gallery/(6)%20Instagram_files/525947016_18072466982314900_514863698377518212_n.jpg', caption: 'Framed by the cave arch — Gheralta\'s orange sandstone cliffs' },
 ]
 
 const instagramHighlights = [
@@ -259,59 +268,19 @@ function TravelAlertBanner({ onOpenMango }) {
   const [isOpen, setIsOpen] = useState(false)
 
   return (
-    <div
-      className="global-travel-alert"
-      style={{
-        background: '#FFF3CD',
-        color: '#856404',
-        padding: '12px 20px',
-        fontSize: '0.88rem',
-        textAlign: 'center',
-        borderBottom: '1px solid #FFEEBA',
-        fontWeight: '500',
-        width: '100%',
-        boxSizing: 'border-box',
-      }}
-    >
-      <div style={{ display: 'inline-block', maxWidth: '100%' }}>
-        <span>⚠️ <strong>Travel Advisory</strong> </span>
-
-        <button
-          onClick={() => setIsOpen(!isOpen)}
-          style={{
-            background: 'none',
-            border: 'none',
-            color: '#533f04',
-            textDecoration: 'underline',
-            fontWeight: 'bold',
-            cursor: 'pointer',
-            padding: '0 5px',
-            fontFamily: 'inherit',
-            fontSize: '0.88rem',
-          }}
-        >
-          {isOpen ? '(Click to Collapse)' : '(Click to View Updates)'}
-        </button>
-
-        <div
-          style={{
-            maxHeight: isOpen ? '200px' : '0px',
-            overflow: 'hidden',
-            transition: 'max-height 0.3s ease-in-out',
-            marginTop: isOpen ? '10px' : '0px',
-            fontSize: '0.85rem',
-            lineHeight: '1.4',
-            textAlign: 'left',
-            background: '#FFFDF5',
-            padding: isOpen ? '12px' : '0px',
-            borderRadius: '6px',
-            border: isOpen ? '1px solid #E6D7A8' : 'none',
-          }}
-        >
-          <p style={{ margin: '0 0 8px 0' }}>
+    <div className="tab-wrapper">
+      <button
+        className="global-travel-alert"
+        onClick={() => setIsOpen(!isOpen)}
+      >
+        ⚠️ Travel Advisory {isOpen ? '(Click to Close)' : '(Click to View Updates)'}
+      </button>
+      {isOpen && (
+        <div className="travel-alert-overlay">
+          <p>
             🌐 <strong>Global Entry Status:</strong> Standard tourist entry via Addis Ababa International Airport (ADD) is fully operational for all international nationalities.
           </p>
-          <p style={{ margin: '0' }}>
+          <p>
             🚖 <strong>Ground Logistics:</strong> Our local networks coordinate regional routes through the Gheralta corridor daily. E-Visas can be secured smoothly prior to departure via <em>evisa.gov.et</em>.
           </p>
           <div style={{ marginTop: '10px', textAlign: 'center' }}>
@@ -333,7 +302,7 @@ function TravelAlertBanner({ onOpenMango }) {
             </button>
           </div>
         </div>
-      </div>
+      )}
     </div>
   )
 }
