@@ -76,6 +76,14 @@ const tripadvisorReviews = [
   { text: '"Top class service from start to finish. We\'ll be back!"', name: 'Marco L.', source: 'Danakil Depression' },
 ]
 
+const heroSlides = [
+  { src: '/gher-door-view.jpg',             label: 'Gheralta Highlands, Tigray',      position: '52% 42%' },
+  { src: '/gallery/cave-hiker.jpg',          label: 'Gheralta Massif, Tigray',         position: 'center 35%' },
+  { src: '/gallery/gheralta-tower.jpg',      label: 'Gheralta Tower, Tigray',          position: 'center 30%' },
+  { src: '/gallery/priest-cliff-edge.jpg',   label: 'Abune Yemata Guh, Tigray',       position: 'center 40%' },
+  { src: '/gallery/rock-climber.jpg',        label: 'Rock Climbing, Gheralta Massif',  position: 'center' },
+]
+
 const galleryImages = [
   { src: '/gallery/gheralta-tower.jpg', caption: 'The Gheralta tower — one of Africa\'s most dramatic rock formations' },
   { src: '/gallery/cave-hiker.jpg', caption: 'Through a cave window — the Gheralta cliff face at golden hour' },
@@ -332,6 +340,7 @@ function TravelAlertBanner({ onOpenMango }) {
 
 function App() {
   const [activeDestination, setActiveDestination] = useState(destinations[0].name)
+  const [heroSlide, setHeroSlide] = useState(0)
   const [galleryIndex, setGalleryIndex] = useState(0)
   const [inquiry, setInquiry] = useState(initialForm)
   const [status, setStatus] = useState('')
@@ -341,6 +350,13 @@ function App() {
   const mangoMessagesEndRef = useRef(null)
   const heroRef = useRef(null)
   const [isHeroVisible, setIsHeroVisible] = useState(true)
+
+  useEffect(() => {
+    const timer = setInterval(() => {
+      setHeroSlide(i => (i + 1) % heroSlides.length)
+    }, 5000)
+    return () => clearInterval(timer)
+  }, [])
 
   useEffect(() => {
     if (window.instgrm?.Embeds) {
@@ -497,10 +513,17 @@ function App() {
       <div className="page-shell">
       <header className="hero" ref={heroRef}>
         <div className="hero-cinema" aria-hidden="true">
-          <div className="hero-cinema-bg" />
+          {heroSlides.map((slide, i) => (
+            <div
+              key={slide.src}
+              className={`hero-slide${i === heroSlide ? ' hero-slide--active' : ''}`}
+              style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }}
+            />
+          ))}
           <div className="hero-cinema-depth" />
           <div className="hero-cinema-vignette" />
         </div>
+        <span className="hero-slide-label">📍 {heroSlides[heroSlide].label}</span>
         <nav className="topbar">
           <div>
             <a href="#top" className="brand-link animated-brand" onClick={handleBrandClick} aria-label="Visit Gheralta home">
