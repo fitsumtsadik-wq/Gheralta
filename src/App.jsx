@@ -445,6 +445,11 @@ function App() {
   const prevSlide = () => setHeroSlide(i => (i - 1 + heroSlides.length) % heroSlides.length)
   const nextSlide = () => setHeroSlide(i => (i + 1) % heroSlides.length)
 
+  useEffect(() => {
+    const timer = setInterval(() => setHeroSlide(i => (i + 1) % heroSlides.length), 2000)
+    return () => clearInterval(timer)
+  }, [])
+
   const askMango = (text) => {
     const question = text.trim()
 
