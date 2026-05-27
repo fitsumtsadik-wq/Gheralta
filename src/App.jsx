@@ -100,15 +100,6 @@ const galleryImages = [
   { src: '/gallery/hyrax-cave.jpg', caption: 'Rock Hyrax — the unexpected resident of Gheralta\'s cliffs' },
   { src: '/gallery/hyrax-rocks.jpg', caption: 'Rock Hyrax — a surprise encounter on the mountain trail' },
   { src: '/gallery/sandgrouse.jpg', caption: 'Four-banded Sandgrouse — wildlife of the Tigray highlands' },
-  { src: '/gallery/(6)%20Instagram_files/626531084_18430895539114623_7031566793083046095_n.jpg', caption: 'Painted ceiling inside a Gheralta rock-hewn church' },
-  { src: '/gallery/(6)%20Instagram_files/618162176_18343992868224823_2956778451925505745_n.jpg', caption: 'Fresco dome ceiling — ancient art of the Tigray highlands' },
-  { src: '/gallery/(6)%20Instagram_files/495957339_18506286466036258_6720778916224891274_n.jpg', caption: 'Orthodox priest with candles in a candlelit church interior' },
-  { src: '/gallery/(6)%20Instagram_files/496029452_18506286448036258_7629443019956252107_n.jpg', caption: 'Priest holding an illuminated manuscript, Abune Yemata Guh' },
-  { src: '/gallery/(6)%20Instagram_files/654600098_18120346111542364_1753360814252715956_n.jpg', caption: 'Elder priest at the cliff cave entrance, Gheralta' },
-  { src: '/gallery/(6)%20Instagram_files/497773554_18507392041036258_2513702969595540035_n.jpg', caption: 'Tiny figure in the cave window — Abune Yemata Guh, Tigray' },
-  { src: '/gallery/(6)%20Instagram_files/514261272_3662027427275408_6936224872848259195_n.jpg', caption: 'Visitors inside a rock-hewn church, Gheralta highlands' },
-  { src: '/gallery/(6)%20Instagram_files/652388430_18086444507189152_172280430135454165_n.jpg', caption: 'Traditional Ethiopian dress at the cliff sanctuary, Gheralta' },
-  { src: '/gallery/(6)%20Instagram_files/525947016_18072466982314900_514863698377518212_n.jpg', caption: 'Framed by the cave arch — Gheralta\'s orange sandstone cliffs' },
 ]
 
 const instagramHighlights = [
@@ -489,11 +480,10 @@ function App() {
             style={{ transform: `translateX(-${heroSlide * 100}%)` }}
           >
             {heroSlides.map((slide, i) => (
-              <div
-                key={slide.src}
-                className="individual-slide"
-                style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }}
-              />
+              <div key={slide.src} className="individual-slide">
+                <div className="individual-slide-bg" style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }} />
+                <img src={slide.src} alt="" className="individual-slide-img" />
+              </div>
             ))}
           </div>
           <div className="hero-cinema-depth" />
