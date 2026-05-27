@@ -351,12 +351,6 @@ function App() {
   const heroRef = useRef(null)
   const [isHeroVisible, setIsHeroVisible] = useState(true)
 
-  useEffect(() => {
-    const timer = setInterval(() => {
-      setHeroSlide(i => (i + 1) % heroSlides.length)
-    }, 5000)
-    return () => clearInterval(timer)
-  }, [])
 
   useEffect(() => {
     if (window.instgrm?.Embeds) {
@@ -479,6 +473,9 @@ function App() {
     requestAnimationFrame(animateScroll)
   }
 
+  const prevSlide = () => setHeroSlide(i => (i - 1 + heroSlides.length) % heroSlides.length)
+  const nextSlide = () => setHeroSlide(i => (i + 1) % heroSlides.length)
+
   const askMango = (text) => {
     const question = text.trim()
 
@@ -513,17 +510,34 @@ function App() {
       <div className="page-shell">
       <header className="hero" ref={heroRef}>
         <div className="hero-cinema" aria-hidden="true">
-          {heroSlides.map((slide, i) => (
-            <div
-              key={slide.src}
-              className={`hero-slide${i === heroSlide ? ' hero-slide--active' : ''}`}
-              style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }}
-            />
-          ))}
+          <div
+            className="slider-track"
+            style={{ transform: `translateX(-${heroSlide * 100}%)` }}
+          >
+            {heroSlides.map((slide, i) => (
+              <div
+                key={slide.src}
+                className="individual-slide"
+                style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }}
+              />
+            ))}
+          </div>
           <div className="hero-cinema-depth" />
           <div className="hero-cinema-vignette" />
         </div>
+        <button className="slider-arrow slider-arrow--left" onClick={prevSlide} aria-label="Previous slide">&#9664;</button>
+        <button className="slider-arrow slider-arrow--right" onClick={nextSlide} aria-label="Next slide">&#9654;</button>
         <span className="hero-slide-label">📍 {heroSlides[heroSlide].label}</span>
+        <div className="slider-dots" aria-label="Slide navigation">
+          {heroSlides.map((_, i) => (
+            <button
+              key={i}
+              className={`dot${i === heroSlide ? ' dot--active' : ''}`}
+              onClick={() => setHeroSlide(i)}
+              aria-label={`Go to slide ${i + 1}`}
+            />
+          ))}
+        </div>
         <nav className="topbar">
           <div>
             <a href="#top" className="brand-link animated-brand" onClick={handleBrandClick} aria-label="Visit Gheralta home">

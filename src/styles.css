@@ -70,6 +70,16 @@ body::before {
   position: relative;
 }
 
+/* ======================== TRAVEL ALERT BANNER ======================== */
+
+.global-travel-alert {
+  max-width: 600px !important;
+  margin: 10px auto !important;
+  border-radius: 30px !important;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  padding: 8px 20px !important;
+}
+
 /* ======================== ADVISORY BANNER ======================== */
 
 .advisory-banner {
@@ -144,19 +154,82 @@ body::before {
   inset: -7%;
 }
 
-.hero-slide {
-  background-size: cover;
-  filter: saturate(0.92) contrast(1.08);
-  transform-origin: center;
-  opacity: 0;
-  transform: scale(1.08);
-  transition: opacity 1.4s ease-in-out, transform 1.4s ease-in-out;
+.slider-track {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  transition: transform 0.25s cubic-bezier(0.2, 0.8, 0.2, 1);
+  will-change: transform;
 }
 
-.hero-slide--active {
-  opacity: 1;
-  transform: scale(1);
-  animation: cinematicDrift 20s cubic-bezier(0.2, 0.72, 0.14, 1) infinite alternate;
+.individual-slide {
+  flex: 0 0 100%;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: saturate(0.92) contrast(1.08);
+}
+
+.slider-arrow {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+  background: rgba(255, 255, 255, 0.15);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  font-size: 1.1rem;
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 200ms ease, transform 200ms ease, border-color 200ms ease;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+}
+
+.slider-arrow:hover {
+  background: var(--accent);
+  border-color: var(--accent);
+  transform: translateY(-50%) scale(1.1);
+}
+
+.slider-arrow--left { left: 1.5rem; }
+.slider-arrow--right { right: 1.5rem; }
+
+.slider-dots {
+  position: absolute;
+  bottom: 1.75rem;
+  right: max(1rem, calc((100vw - 1200px) / 2));
+  display: flex;
+  gap: 0.5rem;
+  z-index: 2;
+}
+
+.dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: rgba(249, 246, 240, 0.4);
+  border: none;
+  cursor: pointer;
+  padding: 0;
+  transition: all 250ms ease;
+}
+
+.dot--active {
+  background: var(--accent);
+  transform: scale(1.4);
 }
 
 .hero-slide-label {
@@ -193,11 +266,6 @@ body::before {
   background:
     radial-gradient(circle at 52% 45%, transparent 0 28%, rgba(9, 6, 4, 0.2) 52%, rgba(9, 6, 4, 0.82) 100%),
     linear-gradient(180deg, rgba(9, 6, 4, 0.34), rgba(9, 6, 4, 0.18) 45%, #090604 100%);
-}
-
-@keyframes cinematicDrift {
-  from { transform: scale(1.04) translate3d(-1.5%, -0.8%, 0) rotate(-0.3deg); }
-  to   { transform: scale(1.12) translate3d(1.2%, 1.4%, 0) rotate(0.45deg); }
 }
 
 @keyframes depthFloat {
@@ -1823,6 +1891,10 @@ main .eyebrow::before {
   .page-shell {
     width: 100%;
   }
+
+  .slider-arrow { width: 38px; height: 38px; font-size: 0.9rem; }
+  .slider-arrow--left { left: 0.5rem; }
+  .slider-arrow--right { right: 0.5rem; }
 
   .hero-copy h1 {
     font-size: 2.4rem;
