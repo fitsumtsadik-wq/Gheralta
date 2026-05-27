@@ -1,9 +1,12 @@
 Gheralta - Tour Booking Web Application
 Live Site: www.visitgheralta.com
+
 About
+
 Gheralta is an interactive tour booking web application built to promote and facilitate tourism to the Gheralta Mountains in the Tigray region of Ethiopia, home to some of Africa's oldest rock-hewn churches, dramatic highland landscapes, and rich Tigrayan cultural heritage.
 The application was designed to connect international and domestic travelers with authentic experiences in one of Ethiopia's most underexplored destinations.
-Built using AI-assisted development, with human direction, architecture decisions, and quality oversight throughout.
+
+#Built using AI-assisted development, with human direction, architecture decisions, and quality oversight throughout.
 
 Features
 
