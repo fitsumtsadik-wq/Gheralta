@@ -247,6 +247,89 @@ const getMangoReply = (question) => {
   return { text: '😊 That is outside my travel training for now, but the real Mango can help you directly on WhatsApp: +251930694177.', whatsapp: true }
 }
 
+function TravelAlertBanner({ onOpenMango }) {
+  const [isOpen, setIsOpen] = useState(false)
+
+  return (
+    <div
+      className="global-travel-alert"
+      style={{
+        background: '#FFF3CD',
+        color: '#856404',
+        padding: '12px 20px',
+        fontSize: '0.88rem',
+        textAlign: 'center',
+        borderBottom: '1px solid #FFEEBA',
+        fontWeight: '500',
+        width: '100%',
+        boxSizing: 'border-box',
+      }}
+    >
+      <div style={{ display: 'inline-block', maxWidth: '100%' }}>
+        <span>⚠️ <strong>Travel Advisory</strong> </span>
+
+        <button
+          onClick={() => setIsOpen(!isOpen)}
+          style={{
+            background: 'none',
+            border: 'none',
+            color: '#533f04',
+            textDecoration: 'underline',
+            fontWeight: 'bold',
+            cursor: 'pointer',
+            padding: '0 5px',
+            fontFamily: 'inherit',
+            fontSize: '0.88rem',
+          }}
+        >
+          {isOpen ? '(Click to Collapse)' : '(Click to View Updates)'}
+        </button>
+
+        <div
+          style={{
+            maxHeight: isOpen ? '200px' : '0px',
+            overflow: 'hidden',
+            transition: 'max-height 0.3s ease-in-out',
+            marginTop: isOpen ? '10px' : '0px',
+            fontSize: '0.85rem',
+            lineHeight: '1.4',
+            textAlign: 'left',
+            background: '#FFFDF5',
+            padding: isOpen ? '12px' : '0px',
+            borderRadius: '6px',
+            border: isOpen ? '1px solid #E6D7A8' : 'none',
+          }}
+        >
+          <p style={{ margin: '0 0 8px 0' }}>
+            🌐 <strong>Global Entry Status:</strong> Standard tourist entry via Addis Ababa International Airport (ADD) is fully operational for all international nationalities.
+          </p>
+          <p style={{ margin: '0' }}>
+            🚖 <strong>Ground Logistics:</strong> Our local networks coordinate regional routes through the Gheralta corridor daily. E-Visas can be secured smoothly prior to departure via <em>evisa.gov.et</em>.
+          </p>
+          <div style={{ marginTop: '10px', textAlign: 'center' }}>
+            <button
+              type="button"
+              onClick={onOpenMango}
+              style={{
+                background: 'none',
+                border: 'none',
+                color: '#856404',
+                fontWeight: 'bold',
+                textDecoration: 'underline',
+                cursor: 'pointer',
+                fontFamily: 'inherit',
+                fontSize: '0.85rem',
+              }}
+            >
+              Chat with Mango for Real-Time Route Verification
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+  )
+}
+
 function App() {
   const [activeDestination, setActiveDestination] = useState(destinations[0].name)
   const [galleryIndex, setGalleryIndex] = useState(0)
@@ -410,21 +493,7 @@ function App() {
 
   return (
     <>
-      <div className="advisory-banner" role="status">
-        <span>⚠</span>
-        <p>
-          <strong>Travel Advisory:</strong> Northern Ethiopia routes are currently operational. Confirm conditions with your guide before departure.
-        </p>
-        <div className="advisory-links">
-          <span className="advisory-links-label">Official advisories:</span>
-          <a href="https://travel.state.gov/content/travel/en/international-travel/International-Travel-Country-Information-Pages/Ethiopia.html" target="_blank" rel="noreferrer" className="advisory-link">🇺🇸 US</a>
-          <a href="https://www.gov.uk/foreign-travel-advice/ethiopia" target="_blank" rel="noreferrer" className="advisory-link">🇬🇧 UK</a>
-          <a href="https://travel.gc.ca/destinations/ethiopia" target="_blank" rel="noreferrer" className="advisory-link">🇨🇦 CA</a>
-          <a href="https://www.smartraveller.gov.au/destinations/africa/ethiopia" target="_blank" rel="noreferrer" className="advisory-link">🇦🇺 AU</a>
-          <a href="https://www.diplomatie.gouv.fr/fr/conseils-aux-voyageurs/conseils-par-pays-destination/ethiopie/" target="_blank" rel="noreferrer" className="advisory-link">🇫🇷 FR</a>
-          <a href="https://www.auswaertiges-amt.de/de/service/laender/aethiopien-node" target="_blank" rel="noreferrer" className="advisory-link">🇩🇪 DE</a>
-        </div>
-      </div>
+      <TravelAlertBanner onOpenMango={() => setIsMangoOpen(true)} />
       <div className="page-shell">
       <header className="hero" ref={heroRef}>
         <div className="hero-cinema" aria-hidden="true">
