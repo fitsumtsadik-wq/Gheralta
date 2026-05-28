@@ -408,9 +408,20 @@ body::before {
 
 /* ======================== SVG CAMEL ======================== */
 
+/*
+  Geometry note (SVG viewBox 0 0 110 70, rendered at 5.5rem × 3.2rem):
+  - Head centre: (24, 20)  →  rendered ≈ (1.2rem, 0.91rem) from SVG origin
+  - Neck-head pivot: (32, 40)
+  - Foot bottom: y ≈ 69  →  rendered ≈ 3.15rem below SVG origin
+  - brand-link padding-top: 3.2rem  →  text top at 3.2rem from brand-link top
+  With camel top: 0, the feet sit right at the letter tops.
+  During drinking (translateY ~1rem + rotate 90° CW on neck-head):
+    snout lands at ≈ 3.65rem from brand-link top = just inside the V bowl.
+*/
+
 .camel-stage {
   position: absolute;
-  top: -0.4rem;
+  top: 0;              /* feet touch the top of the letter-row */
   left: 0;
   width: 5.5rem;
   height: 3.2rem;
@@ -424,12 +435,10 @@ body::before {
   width: 100%;
   height: 100%;
   overflow: visible;
-  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.6));
+  filter: drop-shadow(0 4px 10px rgba(0,0,0,0.55));
 }
 
-.camel-body,
-.camel-hump,
-.camel-head {
+.camel-body, .camel-hump, .camel-head {
   fill: #d4a454;
   stroke: #a0712e;
   stroke-width: 1.5;
@@ -449,29 +458,27 @@ body::before {
 
 .camel-eye { fill: #2a1a06; }
 
-.camel-snout,
-.camel-ear,
-.camel-tail {
+.camel-snout, .camel-ear, .camel-tail {
   fill: none;
   stroke: #8a5c20;
   stroke-width: 2;
   stroke-linecap: round;
 }
 
-/* SVG group transforms use SVG-space pixels, not rem */
+/* Pivot at the neck–body junction so head swings down toward the V */
 .camel-neck-head {
   transform-origin: 32px 40px;
-  transition: transform 0.9s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .camel-legs-front {
-  transform-origin: 40px 55px;
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: 37px 55px;
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .camel-legs-back {
   transform-origin: 67px 55px;
-  transition: transform 0.55s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 /* ---- PHASE: idle ---- */
@@ -481,9 +488,12 @@ body::before {
 }
 
 /* ---- PHASE: walking ---- */
-/* SVG faces left by default — no scaleX flip needed */
+/* Camel SVG faces left naturally — no scaleX flip needed.
+   body bob uses `top` so it doesn't fight camelWalk's transform. */
 .camel-stage--walking {
-  animation: camelWalk 3.2s cubic-bezier(0.35, 0, 0.15, 1) forwards;
+  animation:
+    camelWalk 3.2s cubic-bezier(0.35, 0, 0.15, 1) forwards,
+    camelBob  0.42s ease-in-out infinite;
 }
 
 @keyframes camelWalk {
@@ -492,59 +502,62 @@ body::before {
   100% { transform: translateX(0);    opacity: 1; }
 }
 
+/* subtle vertical bob — camel rocks up-down with each stride */
+@keyframes camelBob {
+  0%, 50%, 100% { top: 0; }
+  25%, 75%      { top: -0.12rem; }
+}
+
+/* pacing gait: front/back on opposite half-cycles for a natural amble */
 .camel-stage--walking .camel-legs-front {
   animation: legSwingFront 0.42s ease-in-out infinite;
 }
-
 .camel-stage--walking .camel-legs-back {
   animation: legSwingBack 0.42s ease-in-out infinite;
 }
 
 @keyframes legSwingFront {
-  0%, 100% { transform: rotate(-10deg); }
-  50%       { transform: rotate(10deg); }
+  0%, 100% { transform: rotate(-14deg); }
+  50%       { transform: rotate(14deg); }
 }
-
 @keyframes legSwingBack {
-  0%, 100% { transform: rotate(10deg); }
-  50%       { transform: rotate(-10deg); }
+  /* offset by half a cycle so back legs are opposite front legs */
+  0%, 100% { transform: rotate(14deg); }
+  50%       { transform: rotate(-14deg); }
 }
 
 /* ---- PHASE: sitting ---- */
+/* Body sinks 1 rem, legs fold inward */
 .camel-stage--sitting {
   opacity: 1;
-  animation: camelBodySit 0.7s ease-out forwards;
+  animation: camelBodySit 0.8s ease-out forwards;
 }
 
 @keyframes camelBodySit {
   from { transform: translateX(0) translateY(0); }
-  to   { transform: translateX(0) translateY(0.5rem); }
+  to   { transform: translateX(0) translateY(1rem); }
 }
 
-.camel-stage--sitting .camel-legs-front {
-  transform: rotate(80deg) translateY(2px);
-}
-
-.camel-stage--sitting .camel-legs-back {
-  transform: rotate(-80deg) translateY(2px);
-}
+/* front legs fold forward (CCW = toward the head which is on the left) */
+.camel-stage--sitting .camel-legs-front { transform: rotate(-70deg); }
+/* back legs fold backward (CW = toward the tail on the right) */
+.camel-stage--sitting .camel-legs-back  { transform: rotate(70deg); }
 
 /* ---- PHASE: drinking ---- */
+/* Stage stays at translateY(1rem).
+   CW 90° on neck-head around (32,40): head swings from (24,20)
+   to approx (12,48) in SVG space = 0.6rem right, 2.19rem down from SVG top.
+   With camel top at 1rem → snout at ~3.65rem from brand-link top,
+   right inside the V bowl (text starts at 3.2rem). */
 .camel-stage--drinking {
   opacity: 1;
-  transform: translateX(0) translateY(0.5rem);
+  transform: translateX(0) translateY(1rem);
+  transition: transform 0.5s ease-out;
 }
 
-.camel-stage--drinking .camel-neck-head {
-  transform: rotate(55deg);
-}
-
-.camel-stage--drinking .camel-legs-front {
-  transform: rotate(80deg) translateY(2px);
-}
-
-.camel-stage--drinking .camel-legs-back {
-  transform: rotate(-80deg) translateY(2px);
+.camel-stage--drinking .camel-neck-head { transform: rotate(90deg); }
+.camel-stage--drinking .camel-legs-front { transform: rotate(-70deg); }
+.camel-stage--drinking .camel-legs-back  { transform: rotate(70deg);
 }
 
 /* ---- water V letter ----
@@ -2155,10 +2168,12 @@ main .eyebrow::before {
     font-size: clamp(1.8rem, 9vw, 2.6rem);
   }
 
+  /* mobile brand-link has padding-top: 2.6rem, font-size ~2.1rem
+     camel height 2.6rem so feet sit right at letter tops (same logic as desktop) */
   .camel-stage {
-    width: 3.2rem;
-    height: 1.9rem;
-    top: -0.2rem;
+    width: 4.1rem;
+    height: 2.4rem;
+    top: 0;
   }
 
   .camel-stage--idle {
@@ -2166,7 +2181,8 @@ main .eyebrow::before {
   }
 
   .camel-stage--walking {
-    animation: camelWalkMobile 3.2s cubic-bezier(0.35, 0, 0.15, 1) forwards;
+    animation: camelWalkMobile 3.2s cubic-bezier(0.35, 0, 0.15, 1) forwards,
+               camelBob 0.42s ease-in-out infinite;
   }
 
   @keyframes camelWalkMobile {
