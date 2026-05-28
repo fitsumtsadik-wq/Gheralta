@@ -465,19 +465,29 @@ body::before {
   stroke-linecap: round;
 }
 
-/* Pivot at the neck–body junction so head swings down toward the V */
+/*
+  transform-box: fill-box makes transform-origin % relative to each
+  element's OWN bounding box, not the SVG viewport.
+  Without this, "32px" means 32 CSS pixels from the SVG edge,
+  which ≠ 32 SVG user units — pivot lands in the wrong place.
+*/
 .camel-neck-head {
-  transform-origin: 32px 40px;
+  transform-box: fill-box;
+  /* 83% 100% = bottom-right corner of the neck-head bounding box
+     ≈ SVG (32, 42), the exact neck-body junction */
+  transform-origin: 83% 100%;
   transition: transform 1s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .camel-legs-front {
-  transform-origin: 37px 55px;
+  transform-box: fill-box;
+  transform-origin: 50% 0%;   /* top-centre of front leg group */
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .camel-legs-back {
-  transform-origin: 67px 55px;
+  transform-box: fill-box;
+  transform-origin: 50% 0%;   /* top-centre of back leg group */
   transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
@@ -561,8 +571,7 @@ body::before {
 }
 
 /* ---- water V letter ----
-   opacity:1 here overrides the opacity:0 base on .brand-letter
-   so the V stays visible while waterRipple runs */
+   opacity:1 overrides the base opacity:0 on .brand-letter */
 .brand-letter--v-drinking {
   opacity: 1;
   color: #5bd4f8;
@@ -574,6 +583,17 @@ body::before {
   0%   { transform: scaleY(1.3) scaleX(0.82); }
   55%  { transform: scaleY(0.9) scaleX(1.06); }
   100% { transform: scaleY(1)   scaleX(1); }
+}
+
+/* ---- drain: V fades back to cream as water is consumed ---- */
+.brand-letter--v-draining {
+  opacity: 1;
+  animation: waterDrain 1.8s ease-in forwards;
+}
+
+@keyframes waterDrain {
+  0%   { color: #5bd4f8; text-shadow: 0 0 14px rgba(91,212,248,0.9); }
+  100% { color: #F9F6F0; text-shadow: none; }
 }
 
 @keyframes letterBounceDrop {

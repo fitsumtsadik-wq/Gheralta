@@ -464,6 +464,10 @@ function App() {
       const t = setTimeout(() => setCamelPhase('drinking'), 1000)
       return () => clearTimeout(t)
     }
+    if (camelPhase === 'drinking') {
+      const t = setTimeout(() => setCamelPhase('done'), 3000)
+      return () => clearTimeout(t)
+    }
   }, [camelPhase])
 
   const askMango = (text) => {
@@ -554,7 +558,10 @@ function App() {
                     className={
                       letter === ' ' ? 'brand-letter brand-letter--space' :
                       (letter === 'V' && index === 0)
-                        ? `brand-letter brand-letter--v${camelPhase === 'drinking' ? ' brand-letter--v-drinking' : ''}`
+                        ? `brand-letter brand-letter--v${
+                            camelPhase === 'drinking' ? ' brand-letter--v-drinking' :
+                            camelPhase === 'done'     ? ' brand-letter--v-draining' : ''
+                          }`
                         : 'brand-letter'
                     }
                     style={{ '--letter-index': index }}
