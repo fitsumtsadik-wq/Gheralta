@@ -1048,7 +1048,6 @@ function App() {
             </svg>
             YouTube
           </a>
-          <a href="mailto:hello@visitgheralta.com">hello@visitgheralta.com</a>
         </div>
       </footer>
 
