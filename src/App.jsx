@@ -437,7 +437,7 @@ function App() {
   const nextSlide = () => setHeroSlide(i => (i + 1) % heroSlides.length)
 
   useEffect(() => {
-    const timer = setInterval(() => setHeroSlide(i => (i + 1) % heroSlides.length), 2000)
+    const timer = setInterval(() => setHeroSlide(i => (i + 1) % heroSlides.length), 5000)
     return () => clearInterval(timer)
   }, [])
 
