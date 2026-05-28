@@ -311,6 +311,8 @@ function App() {
   const mangoMessagesEndRef = useRef(null)
   const heroRef = useRef(null)
   const [isHeroVisible, setIsHeroVisible] = useState(true)
+  const [galleryTouchX, setGalleryTouchX] = useState(null)
+  const [camelPhase, setCamelPhase] = useState('idle')
 
 
   useEffect(() => {
@@ -408,6 +410,7 @@ function App() {
 
   const handleBrandClick = (event) => {
     event.preventDefault()
+    triggerCamel()
     window.history.replaceState(null, '', window.location.pathname)
 
     const start = window.scrollY
@@ -441,6 +444,27 @@ function App() {
     const timer = setInterval(() => setHeroSlide(i => (i + 1) % heroSlides.length), 5000)
     return () => clearInterval(timer)
   }, [])
+
+  const triggerCamel = () => {
+    setCamelPhase('idle')
+    requestAnimationFrame(() => requestAnimationFrame(() => setCamelPhase('walking')))
+  }
+
+  useEffect(() => {
+    const t = setTimeout(() => setCamelPhase('walking'), 1000)
+    return () => clearTimeout(t)
+  }, [])
+
+  useEffect(() => {
+    if (camelPhase === 'walking') {
+      const t = setTimeout(() => setCamelPhase('sitting'), 3200)
+      return () => clearTimeout(t)
+    }
+    if (camelPhase === 'sitting') {
+      const t = setTimeout(() => setCamelPhase('drinking'), 1000)
+      return () => clearTimeout(t)
+    }
+  }, [camelPhase])
 
   const askMango = (text) => {
     const question = text.trim()
@@ -501,15 +525,41 @@ function App() {
         <nav className="topbar">
           <div>
             <a href="#top" className="brand-link animated-brand" onClick={handleBrandClick} aria-label="Visit Gheralta home">
-              <span className="brand-camel" aria-hidden="true">🐪</span>
+              <div className={`camel-stage camel-stage--${camelPhase}`} aria-hidden="true">
+                <svg className="camel-svg" viewBox="0 0 110 70" xmlns="http://www.w3.org/2000/svg">
+                  <ellipse className="camel-body" cx="55" cy="42" rx="28" ry="16" />
+                  <ellipse className="camel-hump" cx="62" cy="28" rx="14" ry="10" />
+                  <g className="camel-neck-head">
+                    <rect className="camel-neck" x="28" y="22" width="8" height="20" rx="4" />
+                    <ellipse className="camel-head" cx="24" cy="20" rx="10" ry="7" />
+                    <circle className="camel-eye" cx="19" cy="18" r="1.5" />
+                    <path className="camel-snout" d="M14 22 Q13 25 16 25 Q19 25 18 22" />
+                    <path className="camel-ear" d="M25 14 L27 9 L30 13" />
+                  </g>
+                  <path className="camel-tail" d="M83 40 Q92 36 94 42 Q96 48 90 48" />
+                  <g className="camel-legs-front">
+                    <rect className="camel-leg" x="34" y="55" width="6" height="14" rx="3" />
+                    <rect className="camel-leg" x="44" y="55" width="6" height="14" rx="3" />
+                  </g>
+                  <g className="camel-legs-back">
+                    <rect className="camel-leg" x="62" y="55" width="6" height="14" rx="3" />
+                    <rect className="camel-leg" x="72" y="55" width="6" height="14" rx="3" />
+                  </g>
+                </svg>
+              </div>
               <p className="brand-mark" aria-label="Visit Gheralta">
                 {'Visit Gheralta'.split('').map((letter, index) => (
                   <span
                     key={`${letter}-${index}`}
-                    className={letter === ' ' ? 'brand-letter brand-letter--space' : 'brand-letter'}
+                    className={
+                      letter === ' ' ? 'brand-letter brand-letter--space' :
+                      (letter === 'V' && index === 0)
+                        ? `brand-letter brand-letter--v${camelPhase === 'drinking' ? ' brand-letter--v-drinking' : ''}`
+                        : 'brand-letter'
+                    }
                     style={{ '--letter-index': index }}
                   >
-                    {letter === ' ' ? '\u00A0' : letter}
+                    {letter === ' ' ? ' ' : letter}
                   </span>
                 ))}
               </p>
@@ -697,7 +747,17 @@ function App() {
             <p className="eyebrow">Photo gallery</p>
             <h2>See what awaits you with Visit Gheralta</h2>
           </div>
-          <div className="gallery-frame">
+          <div
+            className="gallery-frame"
+            onTouchStart={(e) => setGalleryTouchX(e.touches[0].clientX)}
+            onTouchEnd={(e) => {
+              if (galleryTouchX === null) return
+              const diff = galleryTouchX - e.changedTouches[0].clientX
+              if (diff > 50) setGalleryIndex(i => (i + 1) % galleryImages.length)
+              else if (diff < -50) setGalleryIndex(i => (i - 1 + galleryImages.length) % galleryImages.length)
+              setGalleryTouchX(null)
+            }}
+          >
             <img
               key={galleryIndex}
               src={galleryImages[galleryIndex].src}
