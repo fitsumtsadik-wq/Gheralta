@@ -74,10 +74,33 @@ body::before {
 
 .tab-wrapper {
   width: 100%;
-  text-align: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
   position: relative;
   z-index: 100;
-  padding: 6px 0;
+  padding: 6px 1rem;
+}
+
+.book-now-top {
+  display: inline-flex;
+  align-items: center;
+  padding: 4px 14px;
+  border-radius: 20px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 700;
+  font-size: 0.82rem;
+  text-decoration: none;
+  white-space: nowrap;
+  transition: background 180ms ease, transform 180ms ease;
+  flex-shrink: 0;
+}
+
+.book-now-top:hover {
+  background: var(--accent-hover);
+  transform: translateY(-1px);
 }
 
 .global-travel-alert {

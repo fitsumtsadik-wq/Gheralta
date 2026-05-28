@@ -267,6 +267,7 @@ function TravelAlertBanner({ onOpenMango }) {
       >
         ⚠️ Travel Advisory {isOpen ? '(Click to Close)' : '(Click to View Updates)'}
       </button>
+      <a href="#contact" className="book-now-top">Book Now</a>
       {isOpen && (
         <div className="travel-alert-overlay">
           <p>
@@ -397,7 +398,7 @@ function App() {
       `*Destination:* ${inquiry.destination}`,
       `*Travelers:* ${inquiry.travelers}`,
       `*Trip Style:* ${inquiry.tripStyle}`,
-      `*Preferred Dates:* ${inquiry.dates || 'Flexible'}`,
+      `*Preferred Dates:* ${inquiry.dates ? new Date(inquiry.dates + 'T12:00:00').toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) : 'Flexible'}`,
       inquiry.heightComfort ? `*Height Comfort:* ${inquiry.heightComfort}` : '',
       inquiry.message ? `\n*Message:*\n${inquiry.message}` : '',
     ].filter(Boolean).join('\n')
@@ -928,7 +929,7 @@ function App() {
 
                 <label className="form-field">
                   <span>Travelers</span>
-                  <input name="travelers" value={inquiry.travelers} onChange={handleChange} placeholder="2" required />
+                  <input type="number" name="travelers" value={inquiry.travelers} onChange={handleChange} min="1" max="30" required />
                 </label>
 
                 <label className="form-field">
@@ -943,7 +944,7 @@ function App() {
 
                 <label className="form-field">
                   <span>Preferred dates</span>
-                  <input type="text" name="dates" value={inquiry.dates} onChange={handleChange} placeholder="Anytime or exact dates" />
+                  <input type="date" name="dates" value={inquiry.dates} onChange={handleChange} min={new Date().toISOString().split('T')[0]} />
                 </label>
               </div>
 
