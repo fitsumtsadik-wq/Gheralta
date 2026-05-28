@@ -445,6 +445,11 @@ function App() {
     return () => clearInterval(timer)
   }, [])
 
+  useEffect(() => {
+    const timer = setInterval(() => setGalleryIndex(i => (i + 1) % galleryImages.length), 4500)
+    return () => clearInterval(timer)
+  }, [])
+
   const triggerCamel = () => {
     setCamelPhase('idle')
     requestAnimationFrame(() => requestAnimationFrame(() => setCamelPhase('walking')))
@@ -765,6 +770,10 @@ function App() {
               setGalleryTouchX(null)
             }}
           >
+            <div
+              className="gallery-img-bg"
+              style={{ backgroundImage: `url(${galleryImages[galleryIndex].src})` }}
+            />
             <img
               key={galleryIndex}
               src={galleryImages[galleryIndex].src}

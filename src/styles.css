@@ -1155,13 +1155,28 @@ main .eyebrow::before {
   to   { opacity: 1; transform: scale(1); }
 }
 
+/* blurred fill — same technique as hero slides */
+.gallery-img-bg {
+  position: absolute;
+  inset: 0;
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  filter: blur(18px) brightness(0.5) saturate(1.2);
+  transform: scale(1.1);
+  z-index: 0;
+}
+
 .gallery-img {
+  position: absolute;
+  inset: 0;
   width: 100%;
   height: 100%;
-  object-fit: cover;
+  object-fit: contain;
   object-position: center;
   display: block;
   animation: galleryFadeIn 500ms ease both;
+  z-index: 1;
 }
 
 .gallery-btn {
@@ -1206,6 +1221,7 @@ main .eyebrow::before {
   font-style: italic;
   margin: 0;
   pointer-events: none;
+  z-index: 2;
 }
 
 .gallery-dots {
@@ -2146,16 +2162,18 @@ main .eyebrow::before {
   .slider-arrow--left { left: 0.5rem; }
   .slider-arrow--right { right: 0.5rem; }
 
-  /* Never upscale images on mobile — contain at native quality, dark fill for empty space */
-  .individual-slide { background: #0d0806; }
-  .individual-slide-bg { display: none; }
+  /* Mobile: contain keeps full image quality; blurred bg fills black bars */
+  .individual-slide-bg {
+    filter: blur(14px) brightness(0.45) saturate(1.1);
+    transform: scale(1.12);
+    animation: none !important;
+  }
   .individual-slide-img {
     object-fit: contain;
     image-rendering: -webkit-optimize-contrast;
     image-rendering: crisp-edges;
+    animation: none !important;
   }
-  .individual-slide--active .individual-slide-img,
-  .individual-slide--active .individual-slide-bg { animation: none; }
 
   .hero-copy h1 {
     font-size: 2.4rem;
