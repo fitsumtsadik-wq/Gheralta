@@ -77,11 +77,12 @@ const tripadvisorReviews = [
 ]
 
 const heroSlides = [
-  { src: '/gallery/(6)%20Instagram_files/619888013_18187379158360402_3873658630223713024_n.jpg', label: 'Gheralta Massif, Tigray',           position: 'center 30%' },
-  { src: '/gallery/(6)%20Instagram_files/529475343_18535216780016278_2592287229880635112_n.jpg', label: 'Rock-Hewn Churches, Gheralta',      position: 'center center' },
-  { src: '/gallery/(6)%20Instagram_files/617586496_18092066968794560_6388794971089486984_n.jpg', label: 'Cliff-edge Path, Tigray Highlands', position: 'center 40%' },
-  { src: '/gallery/(6)%20Instagram_files/491453233_18496078411031996_7762828447785695209_n.jpg', label: 'Ancient Rock Sanctuary, Tigray',    position: 'center 25%' },
-  { src: '/gallery/(6)%20Instagram_files/485055779_18491046733047269_4290468818570442406_n.jpg', label: 'Abune Yemata Guh, Tigray',          position: 'center 30%' },
+  { src: '/gallery/705957039_2034385464628495_5470486760220239724_n.jpg', label: 'Abune Yemata Guh, Tigray',         position: 'center center' },
+  { src: '/gallery/705967392_1656692118963333_5237077793216577576_n.jpg', label: 'Gheralta Massif at Dawn, Tigray',  position: 'center center' },
+  { src: '/gallery/707113768_882825571524082_3787765429381064666_n.jpg',  label: 'Ancient Fresco, Tigray Highlands', position: 'center center' },
+  { src: '/gallery/707414675_1468355464503263_1675354877231214955_n.jpg', label: 'The Rope Climb, Abune Yemata Guh', position: 'center 30%'   },
+  { src: '/gallery/708500901_2510990452691609_6433628707500938507_n.jpg', label: 'Sacred Ceremony, Tigray',          position: 'center center' },
+  { src: '/gallery/707172601_1694336728574098_8305413804925473176_n.jpg', label: 'Gheralta Rock Towers, Tigray',     position: 'center 40%'   },
 ]
 
 const galleryImages = [
@@ -475,17 +476,12 @@ function App() {
       <div className="page-shell">
       <header className="hero" ref={heroRef}>
         <div className="hero-cinema" aria-hidden="true">
-          <div
-            className="slider-track"
-            style={{ transform: `translateX(-${heroSlide * 100}%)` }}
-          >
-            {heroSlides.map((slide, i) => (
-              <div key={slide.src} className="individual-slide">
-                <div className="individual-slide-bg" style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }} />
-                <img src={slide.src} alt="" className="individual-slide-img" />
-              </div>
-            ))}
-          </div>
+          {heroSlides.map((slide, i) => (
+            <div key={slide.src} className={`individual-slide${i === heroSlide ? ' individual-slide--active' : ''}`}>
+              <div className="individual-slide-bg" style={{ backgroundImage: `url(${slide.src})`, backgroundPosition: slide.position }} />
+              <img src={slide.src} alt="" className="individual-slide-img" />
+            </div>
+          ))}
           <div className="hero-cinema-depth" />
           <div className="hero-cinema-vignette" />
         </div>
