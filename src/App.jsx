@@ -76,31 +76,33 @@ const tripadvisorReviews = [
   { text: '"Top class service from start to finish. We\'ll be back!"', name: 'Marco L.', source: 'Danakil Depression' },
 ]
 
+const B = import.meta.env.BASE_URL
+
 const heroSlides = [
-  { src: '/gallery/705957039_2034385464628495_5470486760220239724_n.jpg', label: 'Abune Yemata Guh, Tigray',         position: 'center center' },
-  { src: '/gallery/705967392_1656692118963333_5237077793216577576_n.jpg', label: 'Gheralta Massif at Dawn, Tigray',  position: 'center center' },
-  { src: '/gallery/707113768_882825571524082_3787765429381064666_n.jpg',  label: 'Ancient Fresco, Tigray Highlands', position: 'center center' },
-  { src: '/gallery/707414675_1468355464503263_1675354877231214955_n.jpg', label: 'The Rope Climb, Abune Yemata Guh', position: 'center 30%'   },
-  { src: '/gallery/708500901_2510990452691609_6433628707500938507_n.jpg', label: 'Sacred Ceremony, Tigray',          position: 'center center' },
-  { src: '/gallery/707172601_1694336728574098_8305413804925473176_n.jpg', label: 'Gheralta Rock Towers, Tigray',     position: 'center 40%'   },
+  { src: `${B}gallery/705957039_2034385464628495_5470486760220239724_n.jpg`, label: 'Abune Yemata Guh, Tigray',         position: 'center center' },
+  { src: `${B}gallery/705967392_1656692118963333_5237077793216577576_n.jpg`, label: 'Gheralta Massif at Dawn, Tigray',  position: 'center center' },
+  { src: `${B}gallery/707113768_882825571524082_3787765429381064666_n.jpg`,  label: 'Ancient Fresco, Tigray Highlands', position: 'center center' },
+  { src: `${B}gallery/707414675_1468355464503263_1675354877231214955_n.jpg`, label: 'The Rope Climb, Abune Yemata Guh', position: 'center 30%'   },
+  { src: `${B}gallery/708500901_2510990452691609_6433628707500938507_n.jpg`, label: 'Sacred Ceremony, Tigray',          position: 'center center' },
+  { src: `${B}gallery/707172601_1694336728574098_8305413804925473176_n.jpg`, label: 'Gheralta Rock Towers, Tigray',     position: 'center 40%'   },
 ]
 
 const galleryImages = [
-  { src: '/gallery/gheralta-tower.jpg', caption: 'The Gheralta tower — one of Africa\'s most dramatic rock formations' },
-  { src: '/gallery/cave-hiker.jpg', caption: 'Through a cave window — the Gheralta cliff face at golden hour' },
-  { src: '/gallery/priest-cliff-edge.jpg', caption: 'An elder priest rests at the cliff edge, Tigray highlands' },
-  { src: '/gallery/priest-candles.jpg', caption: 'Orthodox priest with golden cross in a candlelit church interior' },
-  { src: '/gallery/priest-mural.jpg', caption: 'A deacon welcomes visitors beside an ancient horse fresco' },
-  { src: '/gallery/priest-summit.jpg', caption: 'On the summit trail of Abune Yemata Guh' },
-  { src: '/gallery/fresco-saints.jpg', caption: 'Saints fresco inside Abune Yemata Guh, painted centuries ago' },
-  { src: '/gallery/ceiling-fresco.jpg', caption: 'Celestial ceiling fresco, Maryam Korkor church' },
-  { src: '/gallery/cave-murals.jpg', caption: 'Biblical cave murals preserved in the Gheralta highlands' },
-  { src: '/gallery/rock-church.jpg', caption: 'Rock-hewn church at the base of the Gheralta massif' },
-  { src: '/gallery/rock-climber.jpg', caption: 'Sport climbing on Gheralta\'s iconic sandstone walls' },
-  { src: '/gallery/stone-steps.jpg', caption: 'Ancient stone path leading to a Tigray monastery' },
-  { src: '/gallery/hyrax-cave.jpg', caption: 'Rock Hyrax — the unexpected resident of Gheralta\'s cliffs' },
-  { src: '/gallery/hyrax-rocks.jpg', caption: 'Rock Hyrax — a surprise encounter on the mountain trail' },
-  { src: '/gallery/sandgrouse.jpg', caption: 'Four-banded Sandgrouse — wildlife of the Tigray highlands' },
+  { src: `${B}gallery/gheralta-tower.jpg`, caption: 'The Gheralta tower — one of Africa\'s most dramatic rock formations' },
+  { src: `${B}gallery/cave-hiker.jpg`, caption: 'Through a cave window — the Gheralta cliff face at golden hour' },
+  { src: `${B}gallery/priest-cliff-edge.jpg`, caption: 'An elder priest rests at the cliff edge, Tigray highlands' },
+  { src: `${B}gallery/priest-candles.jpg`, caption: 'Orthodox priest with golden cross in a candlelit church interior' },
+  { src: `${B}gallery/priest-mural.jpg`, caption: 'A deacon welcomes visitors beside an ancient horse fresco' },
+  { src: `${B}gallery/priest-summit.jpg`, caption: 'On the summit trail of Abune Yemata Guh' },
+  { src: `${B}gallery/fresco-saints.jpg`, caption: 'Saints fresco inside Abune Yemata Guh, painted centuries ago' },
+  { src: `${B}gallery/ceiling-fresco.jpg`, caption: 'Celestial ceiling fresco, Maryam Korkor church' },
+  { src: `${B}gallery/cave-murals.jpg`, caption: 'Biblical cave murals preserved in the Gheralta highlands' },
+  { src: `${B}gallery/rock-church.jpg`, caption: 'Rock-hewn church at the base of the Gheralta massif' },
+  { src: `${B}gallery/rock-climber.jpg`, caption: 'Sport climbing on Gheralta\'s iconic sandstone walls' },
+  { src: `${B}gallery/stone-steps.jpg`, caption: 'Ancient stone path leading to a Tigray monastery' },
+  { src: `${B}gallery/hyrax-cave.jpg`, caption: 'Rock Hyrax — the unexpected resident of Gheralta\'s cliffs' },
+  { src: `${B}gallery/hyrax-rocks.jpg`, caption: 'Rock Hyrax — a surprise encounter on the mountain trail' },
+  { src: `${B}gallery/sandgrouse.jpg`, caption: 'Four-banded Sandgrouse — wildlife of the Tigray highlands' },
 ]
 
 const instagramHighlights = [

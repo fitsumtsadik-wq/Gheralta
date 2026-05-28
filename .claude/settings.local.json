@@ -1,0 +1,10 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(ls \"C:/Users/berek/Desktop/brand-*.png\" 2>&1)",
+      "Read(//c/Users/berek/Desktop/**)",
+      "Bash(npm run *)",
+      "Bash(curl -s http://localhost:5173)"
+    ]
+  }
+}
