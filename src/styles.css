@@ -1987,7 +1987,16 @@ main .eyebrow::before {
   .slider-arrow--left { left: 0.5rem; }
   .slider-arrow--right { right: 0.5rem; }
 
-  .individual-slide-img { object-fit: cover; }
+  /* Never upscale images on mobile — contain at native quality, dark fill for empty space */
+  .individual-slide { background: #0d0806; }
+  .individual-slide-bg { display: none; }
+  .individual-slide-img {
+    object-fit: contain;
+    image-rendering: -webkit-optimize-contrast;
+    image-rendering: crisp-edges;
+  }
+  .individual-slide--active .individual-slide-img,
+  .individual-slide--active .individual-slide-bg { animation: none; }
 
   .hero-copy h1 {
     font-size: 2.4rem;
