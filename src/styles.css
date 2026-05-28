@@ -103,6 +103,30 @@ body::before {
   transform: translateY(-1px);
 }
 
+.top-social {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+
+.top-social a {
+  display: inline-flex;
+  align-items: center;
+  color: var(--fg-muted);
+  transition: color 180ms ease, transform 180ms ease;
+}
+
+.top-social a:hover {
+  color: var(--accent);
+  transform: translateY(-1px);
+}
+
+.top-social svg {
+  width: 16px;
+  height: 16px;
+}
+
 .global-travel-alert {
   display: inline-block;
   padding: 4px 16px;
@@ -1731,7 +1755,16 @@ main .eyebrow::before {
   font-weight: 600;
   font-size: 0.9rem;
   position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
   transition: color 180ms ease;
+}
+
+.social-icon {
+  width: 1rem;
+  height: 1rem;
+  flex-shrink: 0;
 }
 
 .footer-links a:hover {
