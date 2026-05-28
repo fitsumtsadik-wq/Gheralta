@@ -1,3 +1,0 @@
-;/*FB_PKG_DELIM*/
-
-__d("InstagramGenericSettingStrings",["fbt"],(function(t,n,r,o,a,i,l,s){"use strict";var e=s._(/*BTDS*/"Settings saved."),u=s._(/*BTDS*/"There was a problem saving your settings."),c=s._(/*BTDS*/"Something went wrong. Please try again later.");l.GENERIC_SETTINGS_SAVED=e,l.GENERIC_SETTINGS_ERROR=u,l.GENERIC_ERROR=c}),226);
