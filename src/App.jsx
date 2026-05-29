@@ -336,6 +336,7 @@ function App() {
   const [isHeroVisible, setIsHeroVisible] = useState(true)
   const [galleryTouchX, setGalleryTouchX] = useState(null)
   const [camelPhase, setCamelPhase] = useState('idle')
+  const [climberPhase, setClimberPhase] = useState('idle')
 
 
   useEffect(() => {
@@ -498,6 +499,30 @@ function App() {
     }
   }, [camelPhase])
 
+  useEffect(() => {
+    const t = setTimeout(() => setClimberPhase('climbing'), 800)
+    return () => clearTimeout(t)
+  }, [])
+
+  useEffect(() => {
+    if (climberPhase === 'climbing') {
+      const t = setTimeout(() => setClimberPhase('standing'), 3500)
+      return () => clearTimeout(t)
+    }
+    if (climberPhase === 'standing') {
+      const t = setTimeout(() => setClimberPhase('selfie'), 800)
+      return () => clearTimeout(t)
+    }
+    if (climberPhase === 'selfie') {
+      const t = setTimeout(() => setClimberPhase('flash'), 1500)
+      return () => clearTimeout(t)
+    }
+    if (climberPhase === 'flash') {
+      const t = setTimeout(() => setClimberPhase('done'), 600)
+      return () => clearTimeout(t)
+    }
+  }, [climberPhase])
+
   const askMango = (text) => {
     const question = text.trim()
 
@@ -579,17 +604,39 @@ function App() {
                   </g>
                 </svg>
               </div>
+              <div className={`climber-stage climber-stage--${climberPhase}`} aria-hidden="true">
+                <svg className="climber-svg" viewBox="0 0 24 96" xmlns="http://www.w3.org/2000/svg">
+                  <line className="climber-rope" x1="12" y1="0" x2="12" y2="96" />
+                  <g className="climber-person">
+                    <circle className="climber-head" cx="12" cy="78" r="4" />
+                    <line className="climber-torso" x1="12" y1="82" x2="12" y2="92" />
+                    <g className="climber-arm-r">
+                      <line x1="12" y1="85" x2="17" y2="81" />
+                    </g>
+                    <g className="climber-arm-l">
+                      <line x1="12" y1="85" x2="7" y2="81" />
+                    </g>
+                    <g className="climber-leg-r">
+                      <line x1="12" y1="92" x2="16" y2="104" />
+                    </g>
+                    <g className="climber-leg-l">
+                      <line x1="12" y1="92" x2="8" y2="104" />
+                    </g>
+                    <g className="climber-phone-arm">
+                      <line x1="12" y1="85" x2="22" y2="82" />
+                      <rect className="climber-phone" x="21" y="80" width="5" height="3.5" rx="0.6" />
+                    </g>
+                    <circle className="climber-flash-circle" cx="23.5" cy="81" r="5.5" />
+                  </g>
+                </svg>
+              </div>
               <p className="brand-mark" aria-label="Visit Gheralta">
                 {'Visit Gheralta'.split('').map((letter, index) => (
                   <span
                     key={`${letter}-${index}`}
                     className={
                       letter === ' ' ? 'brand-letter brand-letter--space' :
-                      (letter === 'V' && index === 0)
-                        ? `brand-letter brand-letter--v${
-                            camelPhase === 'drinking' ? ' brand-letter--v-drinking' :
-                            camelPhase === 'done'     ? ' brand-letter--v-draining' : ''
-                          }`
+                      (letter === 'V' && index === 0) ? 'brand-letter brand-letter--v'
                         : 'brand-letter'
                     }
                     style={{ '--letter-index': index }}
