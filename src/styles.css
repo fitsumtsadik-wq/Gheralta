@@ -643,12 +643,130 @@ body::before {
   100% { color: #F9F6F0; text-shadow: none; }
 }
 
-/* climber stage hidden by default (desktop) — shown inside mobile media query */
-.climber-stage { display: none; }
+/* ======================== ROPE CLIMBER ======================== */
 
-/* ======================== ROPE CLIMBER KEYFRAMES ======================== */
+.brand-letter--v { position: relative; }
 
-/* Arms: 130° range — reach high, grip, pull down, release */
+.climber-stage {
+  display: block;
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 1.3rem;
+  height: 5.5rem;
+  overflow: visible;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.climber-svg {
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.climber-rope {
+  stroke: rgba(249,246,240,0.45);
+  stroke-width: 1.5;
+  stroke-linecap: round;
+}
+
+.climber-head { fill: #F9F6F0; stroke: none; }
+
+.climber-cap {
+  fill: none;
+  stroke: #F9F6F0;
+  stroke-width: 2;
+  stroke-linecap: round;
+}
+
+.climber-torso,
+.climber-cap-brim,
+.climber-cape,
+.climber-arm-r line,
+.climber-arm-l line,
+.climber-leg-r line,
+.climber-leg-l line,
+.climber-phone-arm line {
+  stroke: #F9F6F0;
+  stroke-width: 2;
+  stroke-linecap: round;
+  fill: none;
+}
+
+.climber-pack {
+  fill: #C85A32;
+  stroke: rgba(249,246,240,0.4);
+  stroke-width: 0.5;
+}
+
+.climber-phone {
+  fill: #1a1a2e;
+  stroke: rgba(249,246,240,0.5);
+  stroke-width: 0.5;
+}
+
+.climber-flash-circle {
+  fill: #fff;
+  opacity: 0;
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+.climber-arm-r { transform-box: fill-box; transform-origin: 0% 100%;   transition: transform 0.45s ease-out; }
+.climber-arm-l { transform-box: fill-box; transform-origin: 100% 100%; transition: transform 0.45s ease-out; }
+.climber-leg-r { transform-box: fill-box; transform-origin: 0% 0%;     transition: transform 0.45s ease-out; }
+.climber-leg-l { transform-box: fill-box; transform-origin: 100% 0%;   transition: transform 0.45s ease-out; }
+.climber-phone-arm { transform-box: fill-box; transform-origin: 0% 100%; opacity: 0; transition: opacity 0.3s ease; }
+
+/* ---- Phase: idle ---- */
+.climber-stage--idle .climber-person { opacity: 0; }
+
+/* ---- Phase: climbing ---- */
+.climber-stage--climbing .climber-person {
+  animation: climberRise 3.5s cubic-bezier(0.35, 0.05, 0.25, 0.95) forwards;
+  opacity: 1;
+}
+.climber-stage--climbing .climber-arm-r { animation: armRightClimb 0.65s ease-in-out infinite; }
+.climber-stage--climbing .climber-arm-l { animation: armLeftClimb 0.65s ease-in-out infinite; animation-delay: 0.325s; }
+.climber-stage--climbing .climber-leg-r { animation: legClimb 0.65s ease-in-out infinite; animation-delay: 0.325s; }
+.climber-stage--climbing .climber-leg-l { animation: legClimb 0.65s ease-in-out infinite; }
+
+/* ---- Phase: standing / selfie / flash / done ---- */
+.climber-stage--standing .climber-person,
+.climber-stage--selfie .climber-person,
+.climber-stage--flash .climber-person,
+.climber-stage--done .climber-person {
+  transform: translateY(-5.5rem);
+  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  opacity: 1;
+}
+
+.climber-stage--standing .climber-arm-r  { transform: rotate(85deg);  }
+.climber-stage--standing .climber-arm-l  { transform: rotate(-85deg); }
+.climber-stage--standing .climber-leg-r  { transform: rotate(-10deg); }
+.climber-stage--standing .climber-leg-l  { transform: rotate(10deg);  }
+
+.climber-stage--selfie .climber-arm-r    { transform: rotate(40deg);  }
+.climber-stage--selfie .climber-arm-l    { transform: rotate(-50deg); }
+.climber-stage--selfie .climber-leg-r    { transform: rotate(-10deg); }
+.climber-stage--selfie .climber-leg-l    { transform: rotate(10deg);  }
+.climber-stage--selfie .climber-phone-arm { opacity: 1; }
+
+.climber-stage--flash .climber-arm-r     { transform: rotate(40deg);  }
+.climber-stage--flash .climber-arm-l     { transform: rotate(-50deg); }
+.climber-stage--flash .climber-leg-r     { transform: rotate(-10deg); }
+.climber-stage--flash .climber-leg-l     { transform: rotate(10deg);  }
+.climber-stage--flash .climber-phone-arm { opacity: 1; }
+.climber-stage--flash .climber-flash-circle { animation: cameraFlash 0.55s ease-out forwards; }
+
+.climber-stage--done .climber-arm-r      { transform: rotate(40deg);  }
+.climber-stage--done .climber-arm-l      { transform: rotate(-50deg); }
+.climber-stage--done .climber-leg-r      { transform: rotate(-10deg); }
+.climber-stage--done .climber-leg-l      { transform: rotate(10deg);  }
+.climber-stage--done .climber-phone-arm  { opacity: 1; }
+
 @keyframes armRightClimb {
   0%   { transform: rotate(-65deg) }
   30%  { transform: rotate(-65deg) }
@@ -661,29 +779,23 @@ body::before {
   65%  { transform: rotate(65deg)  }
   100% { transform: rotate(-65deg) }
 }
-
-/* Legs: alternating push/pull */
 @keyframes legClimb {
   0%   { transform: rotate(-22deg) }
   50%  { transform: rotate(22deg)  }
   100% { transform: rotate(-22deg) }
 }
-
-/* Body rises in pulses matching arm pulls */
 @keyframes climberRise {
   0%   { transform: translateY(0) }
-  10%  { transform: translateY(-0.4rem) }
-  22%  { transform: translateY(-0.9rem) }
-  35%  { transform: translateY(-1.5rem) }
-  48%  { transform: translateY(-2.1rem) }
-  60%  { transform: translateY(-2.65rem) }
-  72%  { transform: translateY(-3.1rem) }
-  84%  { transform: translateY(-3.55rem) }
-  92%  { transform: translateY(-3.8rem) }
-  100% { transform: translateY(-4rem) }
+  10%  { transform: translateY(-0.5rem) }
+  22%  { transform: translateY(-1.1rem) }
+  35%  { transform: translateY(-1.95rem) }
+  48%  { transform: translateY(-2.8rem) }
+  60%  { transform: translateY(-3.55rem) }
+  72%  { transform: translateY(-4.15rem) }
+  84%  { transform: translateY(-4.6rem) }
+  92%  { transform: translateY(-4.9rem) }
+  100% { transform: translateY(-5.1rem) }
 }
-
-/* Camera flash: bright burst then fade */
 @keyframes cameraFlash {
   0%   { opacity: 0; transform: scale(0.4); }
   15%  { opacity: 1; transform: scale(1.5); }
@@ -2333,147 +2445,10 @@ main .eyebrow::before {
     100% { transform: translateX(0);    opacity: 1; }
   }
 
-  /* ======================== ROPE CLIMBER (MOBILE ONLY) ======================== */
 
   .camel-stage { display: none !important; }
 
-  .climber-stage {
-    display: block;
-    position: absolute;
-    top: 0;
-    left: -0.25rem;
-    width: 1.5rem;
-    height: 6rem;
-    pointer-events: none;
-    z-index: 2;
-    overflow: visible;
-  }
-
-  .climber-svg {
-    width: 100%;
-    height: 100%;
-    overflow: visible;
-  }
-
-  .climber-rope {
-    stroke: rgba(249,246,240,0.45);
-    stroke-width: 1.5;
-    stroke-linecap: round;
-  }
-
-  .climber-torso,
-  .climber-arm-r line,
-  .climber-arm-l line,
-  .climber-leg-r line,
-  .climber-leg-l line,
-  .climber-phone-arm line {
-    stroke: #F9F6F0;
-    stroke-width: 2.5;
-    stroke-linecap: round;
-  }
-
-  .climber-head { fill: #F9F6F0; stroke: none; }
-
-  .climber-phone {
-    fill: #1a1a2e;
-    stroke: rgba(249,246,240,0.5);
-    stroke-width: 0.5;
-  }
-
-  .climber-flash-circle {
-    fill: #fff;
-    opacity: 0;
-    transform-box: fill-box;
-    transform-origin: center;
-  }
-
-  /* Pivot points for arm/leg rotation */
-  .climber-arm-r {
-    transform-box: fill-box;
-    transform-origin: 0% 100%;    /* shoulder: left-bottom of arm bbox */
-    transition: transform 0.45s ease-out;
-  }
-  .climber-arm-l {
-    transform-box: fill-box;
-    transform-origin: 100% 100%;  /* shoulder: right-bottom of arm bbox */
-    transition: transform 0.45s ease-out;
-  }
-  .climber-leg-r {
-    transform-box: fill-box;
-    transform-origin: 0% 0%;      /* hip: left-top of leg bbox */
-    transition: transform 0.45s ease-out;
-  }
-  .climber-leg-l {
-    transform-box: fill-box;
-    transform-origin: 100% 0%;    /* hip: right-top of leg bbox */
-    transition: transform 0.45s ease-out;
-  }
-  .climber-phone-arm {
-    transform-box: fill-box;
-    transform-origin: 0% 100%;
-    opacity: 0;
-    transition: opacity 0.3s ease;
-  }
-
-  /* ---- Phase: idle ---- */
-  .climber-stage--idle .climber-person { opacity: 0.7; }
-
-  /* ---- Phase: climbing ---- */
-  .climber-stage--climbing .climber-person {
-    animation: climberRise 3.5s cubic-bezier(0.35, 0.05, 0.25, 0.95) forwards;
-    opacity: 1;
-  }
-  .climber-stage--climbing .climber-arm-r {
-    animation: armRightClimb 0.65s ease-in-out infinite;
-  }
-  .climber-stage--climbing .climber-arm-l {
-    animation: armLeftClimb 0.65s ease-in-out infinite;
-    animation-delay: 0.325s;
-  }
-  .climber-stage--climbing .climber-leg-r {
-    animation: legClimb 0.65s ease-in-out infinite;
-    animation-delay: 0.325s;
-  }
-  .climber-stage--climbing .climber-leg-l {
-    animation: legClimb 0.65s ease-in-out infinite;
-  }
-
-  /* ---- Phase: standing / selfie / flash / done ---- */
-  .climber-stage--standing .climber-person,
-  .climber-stage--selfie .climber-person,
-  .climber-stage--flash .climber-person,
-  .climber-stage--done .climber-person {
-    transform: translateY(-4rem);
-    transition: transform 0.3s ease-out;
-    opacity: 1;
-  }
-
-  .climber-stage--standing .climber-arm-r  { transform: rotate(75deg);  }
-  .climber-stage--standing .climber-arm-l  { transform: rotate(-75deg); }
-  .climber-stage--standing .climber-leg-r  { transform: rotate(-10deg); }
-  .climber-stage--standing .climber-leg-l  { transform: rotate(10deg);  }
-
-  .climber-stage--selfie .climber-arm-r    { transform: rotate(40deg);  }
-  .climber-stage--selfie .climber-arm-l    { transform: rotate(-50deg); }
-  .climber-stage--selfie .climber-leg-r    { transform: rotate(-10deg); }
-  .climber-stage--selfie .climber-leg-l    { transform: rotate(10deg);  }
-  .climber-stage--selfie .climber-phone-arm { opacity: 1; }
-
-  .climber-stage--flash .climber-arm-r     { transform: rotate(40deg);  }
-  .climber-stage--flash .climber-arm-l     { transform: rotate(-50deg); }
-  .climber-stage--flash .climber-leg-r     { transform: rotate(-10deg); }
-  .climber-stage--flash .climber-leg-l     { transform: rotate(10deg);  }
-  .climber-stage--flash .climber-phone-arm { opacity: 1; }
-  .climber-stage--flash .climber-flash-circle {
-    animation: cameraFlash 0.55s ease-out forwards;
-  }
-
-  .climber-stage--done .climber-arm-r      { transform: rotate(40deg);  }
-  .climber-stage--done .climber-arm-l      { transform: rotate(-50deg); }
-  .climber-stage--done .climber-leg-r      { transform: rotate(-10deg); }
-  .climber-stage--done .climber-leg-l      { transform: rotate(10deg);  }
-  .climber-stage--done .climber-phone-arm  { opacity: 1; }
-
+  
   .instagram-grid {
     grid-template-columns: 1fr;
   }
@@ -2506,6 +2481,7 @@ main .eyebrow::before {
   }
   .brand-letter { opacity: 1; transform: none; }
   .camel-stage { display: none; }
+  .climber-stage { display: none; }
 }
 
 input:focus,

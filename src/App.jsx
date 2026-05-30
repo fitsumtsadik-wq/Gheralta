@@ -604,32 +604,6 @@ function App() {
                   </g>
                 </svg>
               </div>
-              <div className={`climber-stage climber-stage--${climberPhase}`} aria-hidden="true">
-                <svg className="climber-svg" viewBox="0 0 24 96" xmlns="http://www.w3.org/2000/svg">
-                  <line className="climber-rope" x1="12" y1="0" x2="12" y2="96" />
-                  <g className="climber-person">
-                    <circle className="climber-head" cx="12" cy="78" r="4" />
-                    <line className="climber-torso" x1="12" y1="82" x2="12" y2="92" />
-                    <g className="climber-arm-r">
-                      <line x1="12" y1="85" x2="17" y2="81" />
-                    </g>
-                    <g className="climber-arm-l">
-                      <line x1="12" y1="85" x2="7" y2="81" />
-                    </g>
-                    <g className="climber-leg-r">
-                      <line x1="12" y1="92" x2="16" y2="104" />
-                    </g>
-                    <g className="climber-leg-l">
-                      <line x1="12" y1="92" x2="8" y2="104" />
-                    </g>
-                    <g className="climber-phone-arm">
-                      <line x1="12" y1="85" x2="22" y2="82" />
-                      <rect className="climber-phone" x="21" y="80" width="5" height="3.5" rx="0.6" />
-                    </g>
-                    <circle className="climber-flash-circle" cx="23.5" cy="81" r="5.5" />
-                  </g>
-                </svg>
-              </div>
               <p className="brand-mark" aria-label="Visit Gheralta">
                 {'Visit Gheralta'.split('').map((letter, index) => (
                   <span
@@ -641,7 +615,31 @@ function App() {
                     }
                     style={{ '--letter-index': index }}
                   >
-                    {letter === ' ' ? ' ' : letter}
+                    {letter === ' ' ? ' ' : letter}
+                    {(letter === 'V' && index === 0) && (
+                      <span className={`climber-stage climber-stage--${climberPhase}`} aria-hidden="true">
+                        <svg className="climber-svg" viewBox="0 0 20 90" xmlns="http://www.w3.org/2000/svg">
+                          <line className="climber-rope" x1="10" y1="0" x2="10" y2="90" />
+                          <g className="climber-person">
+                            <path className="climber-cap" d="M8.2 80.5 Q10 78.5 11.8 80.5" />
+                            <line className="climber-cap-brim" x1="11.8" y1="80.5" x2="14.5" y2="81.5" />
+                            <circle className="climber-head" cx="10" cy="82.5" r="2.2" />
+                            <rect className="climber-pack" x="12.2" y="86" width="2.5" height="3.5" rx="0.4" />
+                            <path className="climber-cape" d="M10 85 Q13.5 87.5 13 92" />
+                            <line className="climber-torso" x1="10" y1="84.7" x2="10" y2="91" />
+                            <g className="climber-arm-r"><line x1="10" y1="87" x2="14" y2="84" /></g>
+                            <g className="climber-arm-l"><line x1="10" y1="87" x2="6" y2="84" /></g>
+                            <g className="climber-leg-r"><line x1="10" y1="91" x2="13" y2="96" /></g>
+                            <g className="climber-leg-l"><line x1="10" y1="91" x2="7" y2="96" /></g>
+                            <g className="climber-phone-arm">
+                              <line x1="10" y1="87" x2="18" y2="84" />
+                              <rect className="climber-phone" x="17" y="82.5" width="3" height="2" rx="0.3" />
+                            </g>
+                            <circle className="climber-flash-circle" cx="19" cy="83" r="4.5" />
+                          </g>
+                        </svg>
+                      </span>
+                    )}
                   </span>
                 ))}
               </p>
