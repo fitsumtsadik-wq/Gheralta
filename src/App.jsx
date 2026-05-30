@@ -622,10 +622,10 @@ function App() {
                           <line className="climber-rope" x1="10" y1="0" x2="10" y2="90" />
                           <g className="climber-person">
                             <path className="climber-cap" d="M8.2 80.5 Q10 78.5 11.8 80.5" />
-                            <line className="climber-cap-brim" x1="11.8" y1="80.5" x2="14.5" y2="81.5" />
+                            <line className="climber-cap-brim" x1="8.2" y1="80.5" x2="5.5" y2="81.5" />
                             <circle className="climber-head" cx="10" cy="82.5" r="2.2" />
-                            <rect className="climber-pack" x="12.2" y="86" width="2.5" height="3.5" rx="0.4" />
-                            <path className="climber-cape" d="M10 85 Q13.5 87.5 13 92" />
+                            <rect className="climber-pack" x="7.3" y="86" width="2.5" height="3.5" rx="0.4" />
+                            <path className="climber-cape" d="M10 85 Q6.5 87.5 7 92" />
                             <line className="climber-torso" x1="10" y1="84.7" x2="10" y2="91" />
                             <g className="climber-arm-r"><line x1="10" y1="87" x2="14" y2="84" /></g>
                             <g className="climber-arm-l"><line x1="10" y1="87" x2="6" y2="84" /></g>

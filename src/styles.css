@@ -748,7 +748,7 @@ body::before {
 .climber-stage--selfie .climber-person,
 .climber-stage--flash .climber-person,
 .climber-stage--done .climber-person {
-  transform: translateY(-9rem) translateX(-1.2rem);
+  transform: translateY(-9rem) translateX(1.2rem);
   transition: transform 0.35s ease-out;
   opacity: 1;
 }
@@ -772,15 +772,15 @@ body::before {
 .climber-stage--done .climber-leg-l      { transform: rotate(10deg);  }
 .climber-stage--done .climber-phone-arm  { opacity: 1; }
 
-/* Diagonal path following V's left arm — up and left in roughly 30° increments */
+/* Diagonal path following V's right arm — up and right in roughly 30° increments */
 @keyframes climbOverV {
-  0%   { transform: translateY(-5.1rem) translateX(0);           }
-  18%  { transform: translateY(-5.9rem) translateX(-0.18rem) rotate(-4deg); }
-  36%  { transform: translateY(-6.9rem) translateX(-0.42rem) rotate(3deg);  }
-  54%  { transform: translateY(-7.8rem) translateX(-0.70rem) rotate(-3deg); }
-  72%  { transform: translateY(-8.5rem) translateX(-0.96rem) rotate(2deg);  }
-  88%  { transform: translateY(-8.9rem) translateX(-1.15rem);    }
-  100% { transform: translateY(-9rem)   translateX(-1.2rem);     }
+  0%   { transform: translateY(-5.1rem) translateX(0);          }
+  18%  { transform: translateY(-5.9rem) translateX(0.18rem) rotate(4deg);  }
+  36%  { transform: translateY(-6.9rem) translateX(0.42rem) rotate(-3deg); }
+  54%  { transform: translateY(-7.8rem) translateX(0.70rem) rotate(3deg);  }
+  72%  { transform: translateY(-8.5rem) translateX(0.96rem) rotate(-2deg); }
+  88%  { transform: translateY(-8.9rem) translateX(1.15rem);    }
+  100% { transform: translateY(-9rem)   translateX(1.2rem);     }
 }
 
 @keyframes armRightClimb {
