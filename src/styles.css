@@ -733,22 +733,25 @@ body::before {
 .climber-stage--climbing .climber-leg-r { animation: legClimb 0.65s ease-in-out infinite; animation-delay: 0.325s; }
 .climber-stage--climbing .climber-leg-l { animation: legClimb 0.65s ease-in-out infinite; }
 
-/* ---- Phase: standing / selfie / flash / done ---- */
-/* standing: person pulls from V tip (-5.1rem) up to V's top arms (-9rem) */
-.climber-stage--standing .climber-person,
+/* ---- Phase: standing — climb diagonally up V's left arm ---- */
+.climber-stage--standing .climber-person {
+  animation: climbOverV 2s cubic-bezier(0.35, 0.05, 0.25, 0.95) forwards;
+  opacity: 1;
+}
+/* keep limbs moving while climbing V's body */
+.climber-stage--standing .climber-arm-r { animation: armRightClimb 0.65s ease-in-out infinite; }
+.climber-stage--standing .climber-arm-l { animation: armLeftClimb  0.65s ease-in-out infinite; animation-delay: 0.325s; }
+.climber-stage--standing .climber-leg-r { animation: legClimb      0.65s ease-in-out infinite; animation-delay: 0.325s; }
+.climber-stage--standing .climber-leg-l { animation: legClimb      0.65s ease-in-out infinite; }
+
+/* ---- Phase: selfie / flash / done — standing on top of V's left arm ---- */
 .climber-stage--selfie .climber-person,
 .climber-stage--flash .climber-person,
 .climber-stage--done .climber-person {
-  transform: translateY(-9rem);
-  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(-9rem) translateX(-1.2rem);
+  transition: transform 0.35s ease-out;
   opacity: 1;
 }
-
-/* arms both reaching up — gripping V's arm to pull themselves up */
-.climber-stage--standing .climber-arm-r  { transform: rotate(-65deg); }
-.climber-stage--standing .climber-arm-l  { transform: rotate(-65deg); }
-.climber-stage--standing .climber-leg-r  { transform: rotate(-15deg); }
-.climber-stage--standing .climber-leg-l  { transform: rotate(15deg);  }
 
 .climber-stage--selfie .climber-arm-r    { transform: rotate(40deg);  }
 .climber-stage--selfie .climber-arm-l    { transform: rotate(-50deg); }
@@ -768,6 +771,17 @@ body::before {
 .climber-stage--done .climber-leg-r      { transform: rotate(-10deg); }
 .climber-stage--done .climber-leg-l      { transform: rotate(10deg);  }
 .climber-stage--done .climber-phone-arm  { opacity: 1; }
+
+/* Diagonal path following V's left arm — up and left in roughly 30° increments */
+@keyframes climbOverV {
+  0%   { transform: translateY(-5.1rem) translateX(0);           }
+  18%  { transform: translateY(-5.9rem) translateX(-0.18rem) rotate(-4deg); }
+  36%  { transform: translateY(-6.9rem) translateX(-0.42rem) rotate(3deg);  }
+  54%  { transform: translateY(-7.8rem) translateX(-0.70rem) rotate(-3deg); }
+  72%  { transform: translateY(-8.5rem) translateX(-0.96rem) rotate(2deg);  }
+  88%  { transform: translateY(-8.9rem) translateX(-1.15rem);    }
+  100% { transform: translateY(-9rem)   translateX(-1.2rem);     }
+}
 
 @keyframes armRightClimb {
   0%   { transform: rotate(-65deg) }

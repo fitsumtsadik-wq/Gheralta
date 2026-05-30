@@ -510,7 +510,7 @@ function App() {
       return () => clearTimeout(t)
     }
     if (climberPhase === 'standing') {
-      const t = setTimeout(() => setClimberPhase('selfie'), 800)
+      const t = setTimeout(() => setClimberPhase('selfie'), 2200)
       return () => clearTimeout(t)
     }
     if (climberPhase === 'selfie') {
