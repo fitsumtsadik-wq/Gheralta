@@ -734,19 +734,21 @@ body::before {
 .climber-stage--climbing .climber-leg-l { animation: legClimb 0.65s ease-in-out infinite; }
 
 /* ---- Phase: standing / selfie / flash / done ---- */
+/* standing: person pulls from V tip (-5.1rem) up to V's top arms (-9rem) */
 .climber-stage--standing .climber-person,
 .climber-stage--selfie .climber-person,
 .climber-stage--flash .climber-person,
 .climber-stage--done .climber-person {
-  transform: translateY(-5.5rem);
-  transition: transform 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+  transform: translateY(-9rem);
+  transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1);
   opacity: 1;
 }
 
-.climber-stage--standing .climber-arm-r  { transform: rotate(85deg);  }
-.climber-stage--standing .climber-arm-l  { transform: rotate(-85deg); }
-.climber-stage--standing .climber-leg-r  { transform: rotate(-10deg); }
-.climber-stage--standing .climber-leg-l  { transform: rotate(10deg);  }
+/* arms both reaching up — gripping V's arm to pull themselves up */
+.climber-stage--standing .climber-arm-r  { transform: rotate(-65deg); }
+.climber-stage--standing .climber-arm-l  { transform: rotate(-65deg); }
+.climber-stage--standing .climber-leg-r  { transform: rotate(-15deg); }
+.climber-stage--standing .climber-leg-l  { transform: rotate(15deg);  }
 
 .climber-stage--selfie .climber-arm-r    { transform: rotate(40deg);  }
 .climber-stage--selfie .climber-arm-l    { transform: rotate(-50deg); }
